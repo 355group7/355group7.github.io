@@ -1,12 +1,12 @@
 // Add event listener for the Pokemon title
 document.querySelector(".sidebar h1").addEventListener("click", function () {
     // Redirect to the front page (index.html)
-    window.location.href = "home.html"; // Replace with your front page file
+    window.location.href = "index.html"; // Replace with your front page file
 });
 // Add event listener for the Pokemon title
 document.querySelector(".sidebar h1").addEventListener("click", function () {
     // Redirect to the front page (index.html)
-    window.location.href = "home.html"; // Replace with your front page file
+    window.location.href = "index.html"; // Replace with your front page file
 });
 
 // Keep track of the currently active button
