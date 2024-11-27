@@ -1,70 +1,68 @@
-// Add event listener for the Pokemon title
-document.querySelector(".sidebar h1").addEventListener("click", function () {
-    // Redirect to the front page (index.html)
-    window.location.href = "index.html"; // Replace with your front page file
-});
-// Add event listener for the Pokemon title
-document.querySelector(".sidebar h1").addEventListener("click", function () {
-    // Redirect to the front page (index.html)
-    window.location.href = "index.html"; // Replace with your front page file
+
+document.querySelector(".sidebar h1").addEventListener("click", function () {   
+    window.location.href = "index.html"; 
 });
 
-// Keep track of the currently active button
+document.querySelector(".sidebar h1").addEventListener("click", function () {
+    window.location.href = "index.html"; 
+});
+
+
 let activeButton = null;
 
-// Define the content for each button
+
 const buttonContent = {
     0: {
         image: "path/to/image1.jpg",
-        text: "This is the content for Button 1."
+        text: "This is the placeholder."
     },
     1: {
         image: "path/to/image2.jpg",
-        text: "This is the content for Button 2."
+        text: "This is the placeholder."
     },
     2: {
         image: "path/to/image3.jpg",
-        text: "This is the content for Button 3."
+        text: "This is the placeholder."
     },
     3: {
         image: "path/to/image4.jpg",
-        text: "This is the content for Button 4."
+        text: "This is the placeholder."
     },
     4: {
         image: "path/to/image5.jpg",
-        text: "This is the content for Button 5."
+        text: "This is the placeholder."
     },
     5: {
         image: "path/to/image6.jpg",
-        text: "This is the content for Button 6."
+        text: "This is the placeholder."
     },
     6: {
         image: "path/to/image7.jpg",
-        text: "This is the content for Button 7."
+        text: "This is the placeholder."
     },
     7: {
         image: "path/to/image8.jpg",
-        text: "This is the content for Button 8."
+        text: "This is the placeholder."
     },
     8: {
         image: "path/to/image5.jpg",
-        text: "This is the content for Button 9."
+        text: "This is the placeholder."
     },
     9: {
         image: "path/to/image5.jpg",
-        text: "This is the content for Button 10."
+        text: "This is the placeholder."
     },
     10: {
         image: "path/to/image5.jpg",
-        text: "This is the content for Button 11."
+        text: "This is the placeholder."
     },
     11: {
         image: "path/to/image5.jpg",
-        text: "This is the content for Button 12."
+        text: "This is the placeholder."
     },
     12: {
         image: "path/to/image5.jpg",
-        text: "This is the content for Button 13."
+        text: "This is the placeholder."
     }
 };
 
