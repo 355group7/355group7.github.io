@@ -123,7 +123,6 @@ document.querySelectorAll(".arrow-button").forEach((button, index) => {
         // Set the content of the popup box
         const content = buttonContent[index];
         popupBox.innerHTML = `
-            <img src="${content.image}" alt="Popup Image" style="width:100px; height:auto; margin-bottom:10px;">
             <p>${content.text}</p>
         `;
 
