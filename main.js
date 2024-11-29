@@ -18,7 +18,7 @@ let activeButton = null;
 // Define the content for each button
 const buttonContent = {
     0: {
-        image: "path/to/image1.jpg",
+        //image: "path/to/image1.jpg",
         text: "This is the content for Button 1."
 
     },

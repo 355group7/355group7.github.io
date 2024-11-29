@@ -306,12 +306,12 @@ body {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.popup-box img {
+/* .popup-box img {
   max-width: 200px;
   height: auto;
   display: block;
   margin-bottom: 10px;
-}
+} */
 
 .popup-box p {
   font-size: 14px;
