@@ -18,12 +18,11 @@ let activeButton = null;
 // Define the content for each button
 const buttonContent = {
     0: {
-        //image: "path/to/image1.jpg",
-        text: "This is the content for Button 1."
+        text: "This is the description about vis 1."
 
     },
     1: {
-        image: "path/to/image2.jpg",
+        // image: "path/to/image2.jpg",
         text: "This is the content for Button 2."
     },
     2: {
