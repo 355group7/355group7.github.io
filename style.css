@@ -361,3 +361,15 @@ svg {
   top: 1vw; /* Distance from the top */
   left: 5px; /* Distance from the left */
 }
+.logo {
+  position: absolute; /* Allows absolute positioning */
+  top: 0; /* Align to the top edge */
+  left: 0; /* Align to the left edge */
+  padding: 10px; /* Optional: Add some spacing from edges */
+}
+
+.logo img {
+  width: 100px; /* Set desired width */
+  height: auto; /* Maintain aspect ratio */
+}
+
