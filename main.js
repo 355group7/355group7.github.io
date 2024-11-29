@@ -150,7 +150,7 @@ async function render() {
         
         .encode(
             vl.x().fieldO("evolution_stage").title("Evolution Stage"),
-            vl.y().fieldO("ranking").title("Ranking").sort("ascending"),
+            vl.y().fieldO("ranking").title("Ranking").sort("descending"),
             vl.color().fieldN("type").title("Type").scale({
                 domain: ["Water", "Grass", "Fire"],
                 range: ["#1f77b4", "#2ca02c", "#d62728"],
