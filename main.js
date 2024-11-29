@@ -1,68 +1,74 @@
-
-document.querySelector(".sidebar h1").addEventListener("click", function () {   
-    window.location.href = "index.html"; 
-});
-
+// Add event listener for the Pokemon title
 document.querySelector(".sidebar h1").addEventListener("click", function () {
-    window.location.href = "index.html"; 
+    // Redirect to the front page (index.html)
+    window.location.href = "index.html"; // Replace with your front page file
+});
+// Add event listener for the Pokemon title
+document.querySelector(".sidebar h1").addEventListener("click", function () {
+    // Redirect to the front page (index.html)
+    window.location.href = "index.html"; // Replace with your front page file
 });
 
-
+// Keep track of the currently active button
 let activeButton = null;
 
 
+
+
+// Define the content for each button
 const buttonContent = {
     0: {
         image: "path/to/image1.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 1."
+
     },
     1: {
         image: "path/to/image2.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 2."
     },
     2: {
         image: "path/to/image3.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 3."
     },
     3: {
         image: "path/to/image4.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 4."
     },
     4: {
         image: "path/to/image5.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 5."
     },
     5: {
         image: "path/to/image6.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 6."
     },
     6: {
         image: "path/to/image7.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 7."
     },
     7: {
         image: "path/to/image8.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 8."
     },
     8: {
         image: "path/to/image5.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 9."
     },
     9: {
         image: "path/to/image5.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 10."
     },
     10: {
         image: "path/to/image5.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 11."
     },
     11: {
         image: "path/to/image5.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 12."
     },
     12: {
         image: "path/to/image5.jpg",
-        text: "This is the placeholder."
+        text: "This is the content for Button 13."
     }
 };
 
@@ -127,6 +133,39 @@ document.querySelectorAll(".arrow-button").forEach((button, index) => {
         popupBox.style.position = "absolute";
         popupBox.style.top = `${rect.top}px`;
         popupBox.style.left = `${rect.left - popupBox.offsetWidth - 10}px`;
+
+
     });
 });
 
+async function render() {
+    const data = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv");
+
+    const pokemonData2 = data.filter(
+        d => d.evolution_stage === "Base" && d.region !== "Overall"
+    );
+
+    const vlSpec1 = vl
+    
+        .markBar()
+        .data(pokemonData2)
+        
+        .encode(
+            vl.x().fieldO("evolution_stage").title("Evolution Stage"),
+            vl.y().fieldO("ranking").title("Ranking").sort("ascending"),
+            vl.color().fieldN("type").title("Type").scale({
+                domain: ["Water", "Grass", "Fire"],
+                range: ["#1f77b4", "#2ca02c", "#d62728"],
+            }),
+            vl.column().fieldN("region").title("Region")
+        )
+        .width(60)
+        .height(400)
+        .toSpec();
+    await vegaEmbed("#view1", vlSpec1); // Ensure #view1 exists in visualization.html
+}
+
+//render();
+document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
+    render();
+});
