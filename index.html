@@ -1,61 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>IAT355 Final Project</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
 
-    <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IAT355 Final Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-      <div class="sidebar">
-        <h1>Pokemon</h1>
-        <div class="buttons">
-          <a href="index.html" class="button" id="home-button">home</a>
-          <a href="visualization.html" class="button" id="data-button">data</a>
-          <a href="#" class="button">placeholder</a>
-        </div>
-      </div>
+<body>
 
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>Pokemon</h1>
+    <div class="buttons">
+      <a href="index.html" class="button" id="home-button">Home</a>
+      <a href="visualization.html" class="button" id="data-button">Data</a>
+      <a href="#" class="button">Placeholder</a>
+    </div>
+  </div>
+  <!-- Main Page Sections -->
+  <div class="page">
+    
+    <!-- Section 1: Introduction -->
+    <section class="section" id="introduction">
       <div class="intro-box">
         <h2>Introduce</h2>
         <p>
-            Hi there~ I’m Rotom, your smart and friendly Electronic Pokémon Guidebook! 
-            You can think of me as an instruction manual, but I’m much more advanced than that. 
-            Let me introduce you to our theme: with just a click on the arrow button, 
-            you’ll be taken straight to the data page!
+          Hi there~ I’m Rotom, your smart and friendly Electronic Pokémon Guidebook!
+          You can think of me as an instruction manual, but I’m much more advanced than that.
+          Let me introduce you to our theme: with just a click on the arrow button,
+          you’ll be taken straight to the data page!
         </p>
+      </div>
 
-        <p><strong>Any other questions?</strong></p>
-        <ul>
-            <li>What is Pokémon?</li>
-            <div class="p2">
-              <pl>Pokémon, short for "Pocket Monsters," are fictional creatures that trainers catch, train, 
-                and battle with in the Pokémon universe. Each Pokémon has unique traits, abilities, 
-                and types, such as fire, water, or electric. The world of Pokémon fosters exploration, 
-                strategy, and the special bond between trainers and their Pokémon.</pl>
+    </section>
+
+    
+    <!-- Section 2: Pokémon Overview -->
+    <section class="section" id="overview">
+      <div class="intro-box">
+        <h2>What is Pokémon?</h2>
+
+          <p>
+            Pokémon, short for "Pocket Monsters," are fictional creatures that trainers catch, train,
+            and battle with in the Pokémon universe. Each Pokémon has unique traits, abilities,
+            and types, such as fire, water, or electric. The world of Pokémon fosters exploration,
+            strategy, and the special bond between trainers and their Pokémon.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="overview">
+        <div class="intro-box">
+          <h2>What is Evolution?</h2>
+          <p>
+            In the Pokémon world, evolution refers to the process where a Pokémon transforms into a stronger,
+            more advanced form. This change can occur through leveling up, using special items,
+            or meeting specific conditions. Evolution often enhances a Pokémon's abilities and changes its appearance,
+            making it a key part of a trainer's journey.
+          </p>
+      </div>
+    </section>
 
 
-            <li>What is evolution?</li>
-            <pl>In the Pokémon world, evolution refers to the process where a Pokémon transforms into a stronger, 
-              more advanced form. This change can occur through leveling up, using special items, 
-              or meeting specific conditions. Evolution often enhances a Pokémon's abilities and changes its appearance, 
-              making it a key part of a trainer's journey.
-            </pl>
-          </div>
-        </ul>
+    <!-- Section 3: Footer -->
+    <section class="section" id="footer">
+      <p>© 2024 Pokémon Guide. All Rights Reserved.</p>
+    </section>
+    
+    <div class="logo">
+      <img src="assets/pokemon-23.svg" alt="Pokémon Logo" />
     </div>
+    
+  </div>
+  
+  <div class="gif-container">
+    <img src="assets/4.gif" alt="Animation" class="animated-gif">
+  </div>
+  <!-- Main Script -->
+  <script src="main.js"></script>
 
-          <div class="gif-container">
-            <img src="assets/4.gif" alt="Animation" class="animated-gif">
-          </div>
+</body>
 
-          <div class="logo">
-            <img src="assets/pokemon-23.svg" alt="Description of SVG" />
-          </div>
-
-        <script src="main.js"></script>
-
-      </body>
-    </html>
+</html>

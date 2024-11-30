@@ -131,8 +131,6 @@ document.querySelectorAll(".arrow-button").forEach((button, index) => {
         popupBox.style.position = "absolute";
         popupBox.style.top = `${rect.top}px`;
         popupBox.style.left = `${rect.left - popupBox.offsetWidth - 10}px`;
-
-
     });
 });
 
@@ -144,19 +142,19 @@ async function render() {
     );
 
     const vlSpec1 = vl
-    
+
         .markPoint()
         .data(pokemonData2)
-        
+
         .encode(
-            vl.x().fieldO("evolution_stage").title("evolution_stage"),                    
+            vl.x().fieldO("evolution_stage").title("evolution_stage"),
             vl.y().fieldQ("ranking").title("Ranking").sort("descending"), // Ranking on y-axis
             vl.color().fieldN("type").title("Type").scale({
-              domain: ["Water", "Grass", "Fire"],
-              range: ["#1f77b4", "#2ca02c", "#d62728"]   
+                domain: ["Water", "Grass", "Fire"],
+                range: ["#1f77b4", "#2ca02c", "#d62728"]
             }),
             vl.column().fieldN("region").title("Region")
-          )
+        )
         .width(60)
         .height(400)
         .toSpec();
