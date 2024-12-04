@@ -1,3 +1,14 @@
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+
+let data; 
+let svg, regionGroup;
+let xScale, yScale, colorScale;
+let xAxis, yAxis;
+let regions, maxRanking;
+let pokemondata;
+
+
 // Add event listener for the Pokemon title
 document.querySelector(".sidebar h1").addEventListener("click", function () {
     // Redirect to the front page (index.html)
@@ -11,9 +22,6 @@ document.querySelector(".sidebar h1").addEventListener("click", function () {
 
 // Keep track of the currently active button
 let activeButton = null;
-
-
-
 
 // Define the content for each button
 const buttonContent = {
@@ -134,34 +142,140 @@ document.querySelectorAll(".arrow-button").forEach((button, index) => {
     });
 });
 
-async function render() {
-    const data = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv");
+// async function render() {
+//     const data = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv");
 
-    const pokemonData2 = data.filter(
-        d => d.evolution_stage === "Base" && d.region !== "Overall"
-    );
+//     const pokemonData2 = data.filter(
+//         d => d.evolution_stage === "Base" && d.region !== "Overall"
+//     );
 
-    const vlSpec1 = vl
+//     const vlSpec1 = vl
 
-        .markPoint()
-        .data(pokemonData2)
+//         .markPoint()
+//         .data(pokemonData2)
+//         .encode(
+//             vl.x().fieldO("evolution_stage").title("evolution_stage"),
+//             vl.y().fieldQ("ranking").title("Ranking").sort("descending"), // Ranking on y-axis
+//             vl.color().fieldN("type").title("Type").scale({
+//                 domain: ["Water", "Grass", "Fire"],
+//                 range: ["#1f77b4", "#2ca02c", "#d62728"]
+//             }),
+//             vl.column().fieldN("region").title("Region")
+//         )
+//         .width(60)
+//         .height(400)
+//         .toSpec();
+//     await vegaEmbed("#view1", vlSpec1); // Ensure #view1 exists in visualization.html
+// }
 
-        .encode(
-            vl.x().fieldO("evolution_stage").title("evolution_stage"),
-            vl.y().fieldQ("ranking").title("Ranking").sort("descending"), // Ranking on y-axis
-            vl.color().fieldN("type").title("Type").scale({
-                domain: ["Water", "Grass", "Fire"],
-                range: ["#1f77b4", "#2ca02c", "#d62728"]
-            }),
-            vl.column().fieldN("region").title("Region")
-        )
-        .width(60)
-        .height(400)
-        .toSpec();
-    await vegaEmbed("#view1", vlSpec1); // Ensure #view1 exists in visualization.html
+async function visuals() {
+    pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
+    console.log(pokemondata);
+    // Filter dataset
+    pokemondata = pokemondata.filter(
+    (d) => d.evolution_stage === "Base" && d.region !== "Overall"
+  );
+
+  
+
+  // Group data by region
+  const regions = Array.from(new Set(pokemondata.map(d => d.region)));
+
+  // Define dimensions
+  const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+  const width = 800;
+  const height = 400;
+  const chartWidth = (width - margin.left - margin.right) / regions.length;
+  const chartHeight = height - margin.top - margin.bottom;
+
+
+  svg = d3
+  .select("#visContainer")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+// Scales
+const xScale = d3.scalePoint()
+.domain(["Base"]) // Only one evolution stage in this example
+.range([0, chartWidth]);
+
+const yScale = d3.scaleLinear()
+.domain([0, d3.max(pokemondata, d => d.ranking)]) // Use max ranking as the domain
+.range([chartHeight, 0])
+.nice();
+
+const colorScale = d3.scaleOrdinal()
+.domain(["Water", "Grass", "Fire"])
+.range(["#1f77b4", "#2ca02c", "#d62728"]);
+
+// Draw for each region
+regions.forEach((region, i) => {
+    const regionData = pokemondata.filter(d => d.region === region);
+
+    // Group for region
+    const regionGroup = svg.append("g")
+        .attr("transform", `translate(${margin.left + i * chartWidth}, ${margin.top})`);
+
+    // Axes
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale).ticks(5);
+
+    // Append axes
+    regionGroup.append("g")
+        .attr("transform", `translate(0, ${chartHeight})`)
+        .call(xAxis);
+
+    regionGroup.append("g")
+        .call(yAxis);
+
+    // Add axis titles
+    regionGroup.append("text")
+        .attr("x", chartWidth / 2)
+        .attr("y", chartHeight + 40)
+        .attr("text-anchor", "middle")
+        .text("Evolution Stage");
+
+    regionGroup.append("text")
+        .attr("x", -chartHeight / 2)
+        .attr("y", -40)
+        .attr("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .text("Ranking");
+
+    // Add title for region
+    regionGroup.append("text")
+        .attr("x", chartWidth / 2)
+        .attr("y", -10)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .text(region);
+
+    // Add points
+    regionGroup.selectAll("circle")
+        .data(regionData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xScale(d.evolution_stage))
+        .attr("cy", d => yScale(d.ranking))
+        .attr("r", 5)
+        .attr("fill", d => colorScale(d.type))
+        .attr("opacity", 0.7)
+        .on("mouseover", (event, d) => {
+            // Add tooltip logic here
+            console.log(d); // Debugging hover data
+        });
+});
 }
 
 //render();
-document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
-    render();
-});
+
+
+async function runApp() {
+    document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
+        visuals();
+        console.log("Visualization rendered!");
+    });
+  }
+
+  runApp();
