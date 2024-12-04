@@ -182,7 +182,7 @@ async function visuals() {
   const regions = Array.from(new Set(pokemondata.map(d => d.region)));
 
   // Define dimensions
-  const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+  const margin = { top: 50, right: 30, bottom: 60, left: 50 };
   const width = 800;
   const height = 400;
   const chartWidth = (width - margin.left - margin.right) / regions.length;
@@ -193,7 +193,8 @@ async function visuals() {
   .select("#view1")
   .append("svg")
   .attr("width", width)
-  .attr("height", height);
+  .attr("height", height)
+  .attr("transform", "translate(0, 50)"); 
 
 // Scales
 const xScale = d3.scalePoint()
@@ -247,7 +248,7 @@ regions.forEach((region, i) => {
     // Add title for region
     regionGroup.append("text")
         .attr("x", chartWidth / 2)
-        .attr("y", -5)
+        .attr("y", -15)
         .attr("text-anchor", "middle")
         .attr("font-weight", "bold")
         .text(region);
