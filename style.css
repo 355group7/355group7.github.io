@@ -436,9 +436,10 @@ svg {
 } */
 
 #view1 {
-  width: 100%;
+  width: 500px;
   height: 500px;
-  border: 1px solid red; /* Temporary styling for debugging */
+  border: 1px solid red; 
+  background-color: #fff;
 }
 
 .tooltip {

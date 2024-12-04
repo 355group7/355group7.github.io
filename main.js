@@ -190,18 +190,18 @@ async function visuals() {
 
 
   svg = d3
-  .select("#visContainer")
+  .select("#view1")
   .append("svg")
   .attr("width", width)
   .attr("height", height);
 
 // Scales
 const xScale = d3.scalePoint()
-.domain(["Base"]) // Only one evolution stage in this example
+.domain(["Base"]) 
 .range([0, chartWidth]);
 
 const yScale = d3.scaleLinear()
-.domain([0, d3.max(pokemondata, d => d.ranking)]) // Use max ranking as the domain
+.domain([0, d3.max(pokemondata, d => d.ranking)]) 
 .range([chartHeight, 0])
 .nice();
 
