@@ -234,7 +234,8 @@ regions.forEach((region, i) => {
         .attr("x", chartWidth / 2)
         .attr("y", chartHeight + 40)
         .attr("text-anchor", "middle")
-        .text("Evolution Stage", "14px");
+        .attr("font-size", "12px")
+        .text("Evolution Stage");
 
     regionGroup.append("text")
         .attr("x", -chartHeight / 2)
@@ -246,7 +247,7 @@ regions.forEach((region, i) => {
     // Add title for region
     regionGroup.append("text")
         .attr("x", chartWidth / 2)
-        .attr("y", -10)
+        .attr("y", -5)
         .attr("text-anchor", "middle")
         .attr("font-weight", "bold")
         .text(region);
