@@ -419,6 +419,9 @@ svg {
   justify-content: center;
   align-items: center;
   width: 30%;
+  position: relative; /* Allows use of top/left properties */
+  top: 50px; /* Moves it 50px down */
+  right: 150px; /* Moves it 100px to the right */
 }
 
 /* #view1,
@@ -436,7 +439,7 @@ svg {
 } */
 
 #view1 {
-  width: 500px;
+  width: 800px;
   height: 500px;
   border: 1px solid red; 
   background-color: #fff;
