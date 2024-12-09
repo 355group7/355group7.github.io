@@ -473,13 +473,13 @@ async function visuals2() {
   async function visuals3() {
     const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
-    // Filter dataset for base evolution stage and valid regions
+    // Filter dataset for base evolution stage
     const filteredData = pokemondata.filter(
-      d => d.evolution_stage === "base" && d.region !== "Overall"
+      (d) => d.evolution_stage === "base" && d.region !== "Overall"
     );
   
     // Set dimensions
-    const margin = { top: 50, right: 30, bottom: 60, left: 50 };
+    const margin = { top: 50, right: 30, bottom: 60, left: 70 };
     const width = 800;
     const height = 500;
     const chartWidth = width - margin.left - margin.right;
@@ -496,27 +496,18 @@ async function visuals2() {
   
     // Scales
     const xScale = d3.scalePoint()
-      .domain([...new Set(filteredData.map(d => d.region))])
-      .range([chartWidth * 0.05, chartWidth * 0.8]);
+      .domain([...new Set(filteredData.map((d) => d["pokemon"]))]) // Unique Pokémon names
+      .range([0, chartWidth])
+      .padding(0.5);
   
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(filteredData, d => d.votes)])
+      .domain([0, d3.max(filteredData, (d) => d.votes)]) // Votes range
       .range([chartHeight, 0])
       .nice();
   
     const colorScale = d3.scaleOrdinal()
-      .domain(["fire", "water", "grass"])
-      .range(["red", "blue", "green"]);
-  
-    const sizeScale = d3.scaleLinear()
-      .domain([d3.min(filteredData, d => d.votes), d3.max(filteredData, d => d.votes)])
-      .range([4, 12]);
-  
-    const shapeMap = {
-      fire: "triangle",
-      water: "circle",
-      grass: "square"
-    };
+      .domain([...new Set(filteredData.map((d) => d.region))]) // Unique regions
+      .range(d3.schemeCategory10);
   
     // Axes
     const xAxis = d3.axisBottom(xScale);
@@ -526,15 +517,14 @@ async function visuals2() {
       .attr("transform", `translate(0, ${chartHeight})`)
       .call(xAxis);
   
-    svg.append("g")
-      .call(yAxis);
+    svg.append("g").call(yAxis);
   
     // Add axis labels
     svg.append("text")
       .attr("x", chartWidth / 2)
       .attr("y", chartHeight + margin.bottom - 10)
       .attr("text-anchor", "middle")
-      .text("Regions");
+      .text("Pokemon");
   
     svg.append("text")
       .attr("x", -chartHeight / 2)
@@ -543,42 +533,59 @@ async function visuals2() {
       .attr("transform", "rotate(-90)")
       .text("Votes");
   
-    // Points
+    // Line generator
+    const line = d3
+      .line()
+      .x((d) => xScale(d["pokemon"])) // Map x position to Pokémon names
+      .y((d) => yScale(d.votes)) // Map y position to votes
+      .curve(d3.curveMonotoneX); // Smooth lines
+  
+    // Group data by region for separate lines
+    const regions = d3.group(filteredData, (d) => d.region);
+  
+    // Draw lines
+    svg.selectAll(".line")
+      .data(regions)
+      .enter()
+      .append("path")
+      .attr("d", ([, values]) => line(values)) // Generate the path
+      .attr("fill", "none")
+      .attr("stroke", ([region]) => colorScale(region)) // Color by region
+      .attr("stroke-width", 2);
+  
+    // Add legend for regions
+    const legend = svg
+      .append("g")
+      .attr("transform", `translate(${chartWidth - 50}, 0)`);
+  
+    [...regions.keys()].forEach((region, i) => {
+      legend
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", i * 20)
+        .attr("width", 15)
+        .attr("height", 15)
+        .attr("fill", colorScale(region));
+  
+      legend
+        .append("text")
+        .attr("x", 20)
+        .attr("y", i * 20 + 12)
+        .text(region)
+        .attr("font-size", "12px")
+        .attr("alignment-baseline", "middle");
+    });
+  
+    // Add points on the lines
     svg.selectAll(".point")
       .data(filteredData)
       .enter()
-      .append("path")
-      .attr("transform", d => `translate(${xScale(d.region)}, ${yScale(d.votes)})`)
-      .attr("d", d => {
-        const size = sizeScale(d.votes);
-        if (shapeMap[d.type] === "circle") {
-          return d3.symbol().type(d3.symbolCircle).size(size * 20)();
-        } else if (shapeMap[d.type] === "triangle") {
-          return d3.symbol().type(d3.symbolTriangle).size(size * 20)();
-        } else if (shapeMap[d.type] === "square") {
-          return d3.symbol().type(d3.symbolSquare).size(size * 20)();
-        }
-      })
-      .attr("fill", d => colorScale(d.type))
+      .append("circle")
+      .attr("cx", (d) => xScale(d["pokemon"]))
+      .attr("cy", (d) => yScale(d.votes))
+      .attr("r", 5)
+      .attr("fill", (d) => colorScale(d.region))
       .attr("opacity", 0.8);
-  
-    // Add legend
-    const legend = svg.append("g")
-      .attr("transform", `translate(${chartWidth - 50}, ${margin.top})`);
-  
-    ["fire", "water", "grass"].forEach((type, i) => {
-      legend.append("path")
-        .attr("transform", `translate(0, ${i * 20})`)
-        .attr("d", d3.symbol().type(shapeMap[type] === "triangle" ? d3.symbolTriangle :
-          shapeMap[type] === "circle" ? d3.symbolCircle : d3.symbolSquare).size(100)())
-        .attr("fill", colorScale(type));
-  
-      legend.append("text")
-        .attr("x", 15)
-        .attr("y", i * 20 + 5)
-        .text(type)
-        .attr("alignment-baseline", "middle");
-    });
   }
 
 async function runApp() {
