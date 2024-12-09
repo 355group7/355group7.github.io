@@ -6,7 +6,7 @@ let svg, regionGroup;
 let xScale, yScale, colorScale;
 let xAxis, yAxis;
 let regions, maxRanking;
-let pokemondata;
+let pokemondata, pokemondata1;
 
 
 // Add event listener for the Pokemon title
@@ -271,17 +271,20 @@ regions.forEach((region, i) => {
 }
 
 async function visuals1() {
-    pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
-    console.log(pokemondata);
+    pokemondata1 = await d3.csv("assets/355M1.csv", d3.autoType);
+    console.log(pokemondata1);
     // Filter dataset
-    pokemondata = pokemondata.filter(
+    pokemondata1 = pokemondata1.filter(
     (d) => d.evolution_stage === "Base" && d.region !== "Overall"
   );
 
+  // Convert votes to a number
+  pokemondata1.forEach(d => {
+    d.votes = +d.votes; });
   
 
   // Group data by region
-  const regions = Array.from(new Set(pokemondata.map(d => d.region)));
+  const regions = Array.from(new Set(pokemondata1.map(d => d.region)));
 
   // Define dimensions
   const margin = { top: 50, right: 30, bottom: 60, left: 50 };
@@ -300,77 +303,60 @@ async function visuals1() {
 
 // Scales
 const xScale = d3.scalePoint()
-.domain(["Base"]) 
+.domain(pokemondata1.map(d => d["pokemon"]))
 .range([0, chartWidth]);
 
 const yScale = d3.scaleLinear()
-.domain([0, d3.max(pokemondata, d => d.ranking)]) 
+.domain([0, d3.max(pokemondata1, d => d.votes)]) 
 .range([chartHeight, 0])
 .nice();
 
-const colorScale = d3.scaleOrdinal()
-.domain(["Water", "Grass", "Fire"])
-.range(["#1f77b4", "#2ca02c", "#d62728"]);
+const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+.domain([...new Set(pokemondata1.map(d => d.region))]);
 
-// Draw for each region
-regions.forEach((region, i) => {
-    const regionData = pokemondata.filter(d => d.region === region);
+const shapeScale = d3.scaleOrdinal(d3.symbols)
+.domain([...new Set(pokemondata1.map(d => d.tail))]);
 
-    // Group for region
-    const regionGroup = svg.append("g")
-        .attr("transform", `translate(${margin.left + i * chartWidth}, ${margin.top})`);
+const shapeGenerator = d3.symbol().size(100);
 
-    // Axes
-    const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale).ticks(5);
+  // Axes
+  svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(xScale))
+    .selectAll("text")
+    .attr("transform", "rotate(-45)")
+    .style("text-anchor", "end");
 
-    // Append axes
-    regionGroup.append("g")
-        .attr("transform", `translate(0, ${chartHeight})`)
-        .call(xAxis);
+  svg.append("g")
+    .call(d3.axisLeft(yScale));
 
-    regionGroup.append("g")
-        .call(yAxis);
+// Group data by region for line creation
+const nestedData = d3.group(pokemondata1, d => d.region);
 
-    // Add axis titles
-    regionGroup.append("text")
-        .attr("x", chartWidth / 2)
-        .attr("y", chartHeight + 40)
-        .attr("text-anchor", "middle")
-        .attr("font-size", "12px")
-        .text("Evolution Stage");
+// Draw lines for each region
+nestedData.forEach((regionData, region) => {
+  const line = d3.line()
+    .x(d => xScale(d["pokemon"]))
+    .y(d => yScale(d.votes));
 
-    regionGroup.append("text")
-        .attr("x", -chartHeight / 2)
-        .attr("y", -40)
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        // .text("Ranking");
-
-    // Add title for region
-    regionGroup.append("text")
-        .attr("x", chartWidth / 2)
-        .attr("y", -15)
-        .attr("text-anchor", "middle")
-        .attr("font-weight", "bold")
-        .text(region);
-
-    // Add points
-    regionGroup.selectAll("circle")
-        .data(regionData)
-        .enter()
-        .append("circle")
-        .attr("cx", d => xScale(d.evolution_stage))
-        .attr("cy", d => yScale(d.ranking))
-        .attr("r", 5)
-        .attr("fill", d => colorScale(d.type))
-        .attr("opacity", 0.7)
-        .on("mouseover", (event, d) => {
-            // Add tooltip logic here
-            console.log(d); // Debugging hover data
-        });
+  svg.append("path")
+    .datum(regionData)
+    .attr("fill", "none")
+    .attr("stroke", colorScale(region))
+    .attr("stroke-width", 2)
+    .attr("d", line);
 });
-}
+
+// Draw shapes (points) for each Pokémon
+svg.selectAll(".point")
+  .data(pokemondata1)
+  .enter()
+  .append("path")
+  .attr("d", d => shapeGenerator.type(shapeScale(d.tail))())
+  .attr("transform", d => `translate(${xScale(d["pokemon name"])},${yScale(d.votes)})`)
+  .attr("fill", d => colorScale(d.region));
+};
+
 //render();
 
 
