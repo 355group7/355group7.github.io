@@ -452,6 +452,13 @@ svg {
   background-color: #fff;
 }
 
+#view3 {
+  width: 800px;
+  height: 500px;
+  border: 1px solid rgb(0, 123, 255); 
+  background-color: #fff;
+}
+
 .tooltip {
   position: absolute;
   visibility: hidden;
