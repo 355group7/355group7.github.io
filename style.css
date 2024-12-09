@@ -442,21 +442,28 @@ svg {
   width: 800px;
   height: 500px;
   border: 1px solid red; 
-  background-color: #fff;
+
 }
 
 #view2 {
   width: 800px;
   height: 500px;
   border: 1px solid rgb(0, 123, 255); 
-  background-color: #fff;
+
 }
 
 #view3 {
   width: 800px;
   height: 500px;
   border: 1px solid rgb(0, 123, 255); 
-  background-color: #fff;
+
+}
+
+#view4 {
+  width: 800px;
+  height: 500px;
+  border: 1px solid rgb(0, 123, 255); 
+
 }
 
 .tooltip {
