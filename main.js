@@ -21,7 +21,7 @@ document.querySelector(".sidebar h1").addEventListener("click", function () {
 });
 
 // Keep track of the currently active button
-let activeButton = null；
+let activeButton = null;
 
 // Define the content for each button
 const buttonContent = {
