@@ -470,6 +470,117 @@ async function visuals2() {
     });
   }
 
+  async function visuals3() {
+    const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
+
+    // Filter dataset for base evolution stage and valid regions
+    const filteredData = pokemondata.filter(
+      d => d.evolution_stage === "base" && d.region !== "Overall"
+    );
+  
+    // Set dimensions
+    const margin = { top: 50, right: 30, bottom: 60, left: 50 };
+    const width = 800;
+    const height = 500;
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+  
+    // Append SVG container
+    const svg = d3
+      .select("#view1")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+    // Scales
+    const xScale = d3.scalePoint()
+      .domain([...new Set(filteredData.map(d => d.region))])
+      .range([chartWidth * 0.05, chartWidth * 0.8]);
+  
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(filteredData, d => d.votes)])
+      .range([chartHeight, 0])
+      .nice();
+  
+    const colorScale = d3.scaleOrdinal()
+      .domain(["fire", "water", "grass"])
+      .range(["red", "blue", "green"]);
+  
+    const sizeScale = d3.scaleLinear()
+      .domain([d3.min(filteredData, d => d.votes), d3.max(filteredData, d => d.votes)])
+      .range([4, 12]);
+  
+    const shapeMap = {
+      fire: "triangle",
+      water: "circle",
+      grass: "square"
+    };
+  
+    // Axes
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale);
+  
+    svg.append("g")
+      .attr("transform", `translate(0, ${chartHeight})`)
+      .call(xAxis);
+  
+    svg.append("g")
+      .call(yAxis);
+  
+    // Add axis labels
+    svg.append("text")
+      .attr("x", chartWidth / 2)
+      .attr("y", chartHeight + margin.bottom - 10)
+      .attr("text-anchor", "middle")
+      .text("Regions");
+  
+    svg.append("text")
+      .attr("x", -chartHeight / 2)
+      .attr("y", -margin.left + 10)
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .text("Votes");
+  
+    // Points
+    svg.selectAll(".point")
+      .data(filteredData)
+      .enter()
+      .append("path")
+      .attr("transform", d => `translate(${xScale(d.region)}, ${yScale(d.votes)})`)
+      .attr("d", d => {
+        const size = sizeScale(d.votes);
+        if (shapeMap[d.type] === "circle") {
+          return d3.symbol().type(d3.symbolCircle).size(size * 20)();
+        } else if (shapeMap[d.type] === "triangle") {
+          return d3.symbol().type(d3.symbolTriangle).size(size * 20)();
+        } else if (shapeMap[d.type] === "square") {
+          return d3.symbol().type(d3.symbolSquare).size(size * 20)();
+        }
+      })
+      .attr("fill", d => colorScale(d.type))
+      .attr("opacity", 0.8);
+  
+    // Add legend
+    const legend = svg.append("g")
+      .attr("transform", `translate(${chartWidth - 50}, ${margin.top})`);
+  
+    ["fire", "water", "grass"].forEach((type, i) => {
+      legend.append("path")
+        .attr("transform", `translate(0, ${i * 20})`)
+        .attr("d", d3.symbol().type(shapeMap[type] === "triangle" ? d3.symbolTriangle :
+          shapeMap[type] === "circle" ? d3.symbolCircle : d3.symbolSquare).size(100)())
+        .attr("fill", colorScale(type));
+  
+      legend.append("text")
+        .attr("x", 15)
+        .attr("y", i * 20 + 5)
+        .text(type)
+        .attr("alignment-baseline", "middle");
+    });
+  }
+
 async function runApp() {
     document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
         visuals0();
@@ -482,6 +593,10 @@ async function runApp() {
     });
     document.querySelector(".arrow-button[style='--index: 2;']").addEventListener("click", () => {
         visuals2();
+        console.log("Visualization rendered!");
+    });
+    document.querySelector(".arrow-button[style='--index: 3;']").addEventListener("click", () => {
+        visuals3();
         console.log("Visualization rendered!");
     });
   }
