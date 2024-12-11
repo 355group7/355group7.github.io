@@ -454,9 +454,9 @@ pointsGroup.selectAll(".point")
     // Create a PNG image element dynamically using the image field from the data
     svg.append("image")
       .attr("x", xScale(d.region) - 20) // Adjust the position of the PNG image
-      .attr("y", yScale(d.votes) - 50) // Position the image above the point
-      .attr("width", 40)               // Set image width
-      .attr("height", 40)              // Set image height
+      .attr("y", yScale(d.votes) - 70) // Position the image above the point
+      .attr("width", 60)               // Set image width
+      .attr("height", 60)              // Set image height
       .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
       .attr("class", "hover-image");   // Add a class for easy selection
   })
