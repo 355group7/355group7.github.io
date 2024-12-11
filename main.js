@@ -24,60 +24,27 @@ document.querySelector(".sidebar h1").addEventListener("click", function () {
 let activeButton = null;
 
 // Define the content for each button
-const buttonContent = {
-    0: {
-        text: "This is the description about vis 1."
+// const buttonContent = {
+//     0: {
+//         text: "This is the description about vis 1."
 
-    },
-    1: {
-        // image: "path/to/image2.jpg",
-        text: "This is the content for Button 2."
-    },
-    2: {
-        image: "path/to/image3.jpg",
-        text: "This is the content for Button 3."
-    },
-    3: {
-        image: "path/to/image4.jpg",
-        text: "This is the content for Button 4."
-    },
-    4: {
-        image: "path/to/image5.jpg",
-        text: "This is the content for Button 5."
-    },
-    5: {
-        image: "path/to/image6.jpg",
-        text: "This is the content for Button 6."
-    },
-    6: {
-        image: "path/to/image7.jpg",
-        text: "This is the content for Button 7."
-    },
-    7: {
-        image: "path/to/image8.jpg",
-        text: "This is the content for Button 8."
-    },
-    8: {
-        image: "path/to/image5.jpg",
-        text: "This is the content for Button 9."
-    },
-    9: {
-        image: "path/to/image5.jpg",
-        text: "This is the content for Button 10."
-    },
-    10: {
-        image: "path/to/image5.jpg",
-        text: "This is the content for Button 11."
-    },
-    11: {
-        image: "path/to/image5.jpg",
-        text: "This is the content for Button 12."
-    },
-    12: {
-        image: "path/to/image5.jpg",
-        text: "This is the content for Button 13."
-    }
-};
+//     },
+//     1: {
+//         text: "This is the content for Button 2."
+//     },
+//     2: {
+//         image: "path/to/image3.jpg",
+//         text: "This is the content for Button 3."
+//     },
+//     3: {
+//         image: "path/to/image4.jpg",
+//         text: "This is the content for Button 4."
+//     },
+//     4: {
+//         image: "path/to/image5.jpg",
+//         text: "This is the content for Button 5."
+//     }
+// };
 
 // Add event listeners to each arrow-button
 document.querySelectorAll(".arrow-button").forEach((button, index) => {
@@ -142,31 +109,7 @@ document.querySelectorAll(".arrow-button").forEach((button, index) => {
     });
 });
 
-// async function render() {
-//     const data = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv");
 
-//     const pokemonData2 = data.filter(
-//         d => d.evolution_stage === "Base" && d.region !== "Overall"
-//     );
-
-//     const vlSpec1 = vl
-
-//         .markPoint()
-//         .data(pokemonData2)
-//         .encode(
-//             vl.x().fieldO("evolution_stage").title("evolution_stage"),
-//             vl.y().fieldQ("ranking").title("Ranking").sort("descending"), // Ranking on y-axis
-//             vl.color().fieldN("type").title("Type").scale({
-//                 domain: ["Water", "Grass", "Fire"],
-//                 range: ["#1f77b4", "#2ca02c", "#d62728"]
-//             }),
-//             vl.column().fieldN("region").title("Region")
-//         )
-//         .width(60)
-//         .height(400)
-//         .toSpec();
-//     await vegaEmbed("#view1", vlSpec1); // Ensure #view1 exists in visualization.html
-// }
 
 async function visuals0() {
   pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
