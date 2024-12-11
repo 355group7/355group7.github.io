@@ -383,6 +383,19 @@ async function visuals2() {
   
     svg.append("g")
       .call(yAxis);
+
+      svg.selectAll(".x-grid-line")
+      .data(xScale.domain())
+      .enter()
+      .append("line")
+      .attr("class", "x-grid-line")
+      .attr("x1", d => xScale(d)) // Starting x position
+      .attr("x2", d => xScale(d)) // Ending x position
+      .attr("y1", 0)              // Starting y position (top of the chart)
+      .attr("y2", chartHeight)    // Ending y position (bottom of the chart)
+      .attr("stroke", "gray")     // Line color
+      .attr("stroke-dasharray", "4 4") // Dashed line style
+      .attr("stroke-opacity", 0.5);    // Optional: reduce opacity for aesthetics
   
     // Add axis labels
     svg.append("text")
