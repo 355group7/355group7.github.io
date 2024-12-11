@@ -410,7 +410,7 @@ async function visuals2() {
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
       .text("Votes");
-  
+
     // Points
     svg.selectAll(".point")
       .data(filteredData)
@@ -430,7 +430,40 @@ async function visuals2() {
       .attr("fill", d => colorScale(d.type))
       .attr("opacity", 0.8);
 
-    
+// Add a group to hold the points and the PNGs
+const pointsGroup = svg.append("g").attr("class", "points-group");
+
+pointsGroup.selectAll(".point")
+  .data(filteredData)
+  .enter()
+  .append("path")
+  .attr("transform", d => `translate(${xScale(d.region)}, ${yScale(d.votes)})`)
+  .attr("d", d => {
+    const size = sizeScale(d.votes);
+    if (shapeMap[d.type] === "circle") {
+      return d3.symbol().type(d3.symbolCircle).size(size * 20)();
+    } else if (shapeMap[d.type] === "triangle") {
+      return d3.symbol().type(d3.symbolTriangle).size(size * 20)();
+    } else if (shapeMap[d.type] === "square") {
+      return d3.symbol().type(d3.symbolSquare).size(size * 20)();
+    }
+  })
+  .attr("fill", d => colorScale(d.type))
+  .attr("opacity", 0.8)
+  .on("mouseover", function (event, d) {
+    // Create a PNG image element dynamically using the image field from the data
+    svg.append("image")
+      .attr("x", xScale(d.region) - 20) // Adjust the position of the PNG image
+      .attr("y", yScale(d.votes) - 50) // Position the image above the point
+      .attr("width", 40)               // Set image width
+      .attr("height", 40)              // Set image height
+      .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
+      .attr("class", "hover-image");   // Add a class for easy selection
+  })
+  .on("mouseout", function () {
+    // Remove the PNG image on mouseout
+    svg.selectAll(".hover-image").remove();
+  });
   
     // Add legend
     const legend = svg.append("g")
