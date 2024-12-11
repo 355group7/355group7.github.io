@@ -170,7 +170,7 @@ document.querySelectorAll(".arrow-button").forEach((button, index) => {
 
 async function visuals0() {
     pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
-    console.log(pokemondata);
+    console.log("Loaded Data:", pokemondata1);
     // Filter dataset
     pokemondata = pokemondata.filter(
     (d) => d.evolution_stage === "Base" && d.region !== "Overall"
@@ -272,7 +272,7 @@ regions.forEach((region, i) => {
 
 async function visuals1() {
     pokemondata1 = await d3.csv("assets/355M1.csv", d3.autoType);
-    console.log(pokemondata1);
+    console.log("Region Data:", region);
     // Filter dataset
     pokemondata1 = pokemondata1.filter(
     (d) => d.evolution_stage === "Base" && d.region !== "Overall"
@@ -588,7 +588,7 @@ async function visuals2() {
       .attr("opacity", 0.8);
   }
 
-async function runApp() {
+async function runApp2() {
     document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
         visuals0();
         console.log("Visualization rendered!");
@@ -608,4 +608,4 @@ async function runApp() {
     });
   }
 
-  runApp();
+  runApp2();
