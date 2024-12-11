@@ -430,41 +430,7 @@ async function visuals2() {
       .attr("fill", d => colorScale(d.type))
       .attr("opacity", 0.8);
 
-    // Add a group to hold the points and the PNGs
-const pointsGroup = svg.append("g").attr("class", "points-group");
-
-// Points
-pointsGroup.selectAll(".point")
-  .data(filteredData)
-  .enter()
-  .append("path")
-  .attr("transform", d => `translate(${xScale(d.region)}, ${yScale(d.votes)})`)
-  .attr("d", d => {
-    const size = sizeScale(d.votes);
-    if (shapeMap[d.type] === "circle") {
-      return d3.symbol().type(d3.symbolCircle).size(size * 20)();
-    } else if (shapeMap[d.type] === "triangle") {
-      return d3.symbol().type(d3.symbolTriangle).size(size * 20)();
-    } else if (shapeMap[d.type] === "square") {
-      return d3.symbol().type(d3.symbolSquare).size(size * 20)();
-    }
-  })
-  .attr("fill", d => colorScale(d.type))
-  .attr("opacity", 0.8)
-  .on("mouseover", function (event, d) {
-    // Create a PNG image element
-    svg.append("image")
-      .attr("x", xScale(d.region) - 20) // Adjust the position of the PNG image
-      .attr("y", yScale(d.votes) - 50) // Position the image above the point
-      .attr("width", 40)               // Set image width
-      .attr("height", 40)              // Set image height
-      .attr("href", "path_to_your_image.png") // Replace with the actual path to your PNG
-      .attr("class", "hover-image");   // Add a class for easy selection
-  })
-  .on("mouseout", function () {
-    // Remove the PNG image on mouseout
-    svg.selectAll(".hover-image").remove();
-  });
+    
   
     // Add legend
     const legend = svg.append("g")

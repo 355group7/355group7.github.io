@@ -1,4 +1,4 @@
-pokemon name,gen,type,votes,region,evolution_stage,Body shape,tail,image
+pokemon,gen,type,votes,region,evolution_stage,Body shape,tail,image
 squirtle,1,water,230,Kanto,base,with bipedal,1,images/water1.png
 Bulbasaur,1,grass,320,Kanto,base,with quadrup,0,images/grass1.png
 charmander,1,fire,400,Kanto,base,with bipedal,0,images/fire1.png
