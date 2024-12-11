@@ -46,6 +46,108 @@ let activeButton = null;
 //     }
 // };
 
+
+function drawPokeballWithButtons() {
+  // Select the container for the Poké Ball
+  const container = d3.select("#poke-ball-container")
+    .style("position", "relative")
+    .style("width", "100%")
+    .style("height", "100%");
+
+  // Create an SVG inside the container
+  const svg = container.append("svg")
+    .attr("width", "100vw") // Full width for responsive layout
+    .attr("height", "100vh") // Full height for responsive layout)
+    .style("position", "absolute");
+
+  // Define constants for size calculations
+  const pokeBallSize = window.innerWidth * 0.24;
+  const centerCircleSize = pokeBallSize / 4;
+  const borderWidth = pokeBallSize / 20;
+
+  // Group for Poké Ball and buttons
+  const pokeBallGroup = svg.append("g")
+    .attr("class", "poke-ball-group")
+    .attr("transform", `translate(${window.innerWidth / 2}, ${window.innerHeight / 2})`);
+
+  const cxSize = 40;
+  const cySize = 40;
+
+  // Draw the Poké Ball
+  pokeBallGroup.append("circle")
+    .attr("cx", 0)
+    .attr("cy", 0)
+    .attr("r", pokeBallSize / 2)
+    .attr("fill", "#d16533")
+    .attr("stroke", "#232323")
+    .attr("stroke-width", borderWidth);
+
+  pokeBallGroup.append("circle")
+    .attr("cx", 0)
+    .attr("cy", pokeBallSize / 5)
+    .attr("r", pokeBallSize / 2)
+    .attr("fill", "#ffffff");
+
+  pokeBallGroup.append("rect")
+    .attr("x", -pokeBallSize / 2)
+    .attr("y", -borderWidth / 2)
+    .attr("width", pokeBallSize)
+    .attr("height", borderWidth)
+    .attr("fill", "#232323");
+
+  pokeBallGroup.append("circle")
+    .attr("cx", 0)
+    .attr("cy", 0)
+    .attr("r", centerCircleSize / 2)
+    .attr("fill", "#ffffff")
+    .attr("stroke", "#232323")
+    .attr("stroke-width", borderWidth / 2);
+
+  // Draw the Arrow Buttons
+  const arrowButtonData = [
+    { index: 0, label: "Vis1", xOffset: -pokeBallSize / 1.8, yOffset: -pokeBallSize / 4 },
+    { index: 1, label: "Vis2", xOffset: -pokeBallSize / 1.8, yOffset: -pokeBallSize / 8 },
+    { index: 2, label: "Vis3", xOffset: -pokeBallSize / 1.8, yOffset: pokeBallSize / 8 },
+    { index: 3, label: "Vis4", xOffset: -pokeBallSize / 1.8, yOffset: pokeBallSize / 4 },
+  ];
+
+  const arrowButtons = pokeBallGroup.selectAll(".arrow-button")
+    .data(arrowButtonData)
+    .enter()
+    .append("g")
+    .attr("class", "arrow-button")
+    .attr("transform", d => `translate(${d.xOffset}, ${d.yOffset})`)
+    .on("click", (event, d) => {
+      console.log(`Button ${d.label} clicked`);
+      // Trigger visualization functions
+      if (d.index === 0) visuals0();
+      if (d.index === 1) visuals1();
+      if (d.index === 2) visuals2();
+      if (d.index === 3) visuals3();
+    });
+
+  // Add Button Shapes
+  arrowButtons.append("rect")
+    .attr("x", 0)
+    .attr("y", -10)
+    .attr("width", 18 * 16) // 18rem equivalent
+    .attr("height", 20) // Height of the button
+    .attr("fill", "#232323")
+    .attr("rx", 5); // Rounded corners
+
+  // Add Button Labels
+  arrowButtons.append("text")
+    .attr("x", 18 * 8) // Center text in button (half of 18rem)
+    .attr("y", 5)
+    .attr("fill", "#ffffff")
+    .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "middle")
+    .style("font-size", "14px")
+    .style("font-weight", "bold")
+    .text(d => d.label);
+}
+drawPokeballWithButtons();
+
 // Add event listeners to each arrow-button
 document.querySelectorAll(".arrow-button").forEach((button, index) => {
     const arrow = document.querySelector(`.arrow:nth-of-type(${index + 1})`);

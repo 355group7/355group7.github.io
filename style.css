@@ -91,7 +91,7 @@ html {
   height: auto;
 }
 
-:root {
+/* :root {
   --poke-ball-size: 26vw;
   --center-circle-size: calc(var(--poke-ball-size) / 4);
   --inner-circle-size: calc(var(--center-circle-size) / 2.5);
@@ -177,7 +177,7 @@ html {
 .arrow-button:hover {
   background-color: white;
   color: #d16533;
-}
+} */
 
 .animated-image {
   position: absolute;
@@ -297,8 +297,8 @@ svg {
   align-items: center;
   width: 30%;
   position: relative;
-  top: 50px;
-  right: 380px;
+  top: -480px;
+  right: 530px;
 }
 
 #view{
