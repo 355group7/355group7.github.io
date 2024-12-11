@@ -295,7 +295,7 @@ async function visuals1() {
 
 
   svg = d3
-  .select("#view1")
+  .select("#view2")
   .append("svg")
   .attr("width", width)
   .attr("height", height)
@@ -376,7 +376,7 @@ async function visuals2() {
   
     // Append SVG container
     const svg = d3
-      .select("#view1")
+      .select("#view3")
       .append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -487,7 +487,7 @@ async function visuals2() {
   
     // Append SVG container
     const svg = d3
-      .select("#view1")
+      .select("#view4")
       .append("svg")
       .attr("width", width)
       .attr("height", height)

@@ -421,10 +421,10 @@ svg {
   width: 30%;
   position: relative; /* Allows use of top/left properties */
   top: 50px; /* Moves it 50px down */
-  right: 150px; /* Moves it 100px to the right */
+  right: 380px; /* Moves it 100px to the right */
 }
 
-/* #view1,
+#view1,
 #view2,
 #view3,
 #view4,
@@ -432,13 +432,13 @@ svg {
   width: 80%;
   height: 50%;
   max-width: 200px;
-
   position: absolute;
   top: 1vw;
   left: 5px;
-} */
+  background-color: white; /* Optional for clarity */
+}
 
-#view1 {
+/* #view1 {
   width: 800px;
   height: 500px;
   border: 1px solid red; 
@@ -464,7 +464,7 @@ svg {
   height: 500px;
   border: 1px solid rgb(0, 123, 255); 
 
-}
+} */
 
 .tooltip {
   position: absolute;
@@ -482,15 +482,6 @@ svg {
   .container {
       width: 100%;
       padding: 0.5rem;
-  }
-
-  #view1,
-  #view2,
-  #view3,
-  #view4,
-  #view5 {
-      width: 100%;
-      height: 300px; /* Reduce height for smaller screens */
   }
 
   .main-content {
