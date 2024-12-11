@@ -12,18 +12,18 @@ html {
 }
 
 .page {
-  scroll-snap-type: y mandatory; /* Enable vertical snapping */
-  overflow-y: scroll; /* Allow vertical scrolling */
-  height: 100vh; /* Full height for the container */
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 .section {
-  scroll-snap-align: start; /* Snap sections to the top of the viewport */
-  height: 100vh; /* Each section takes up full viewport height */
+  scroll-snap-align: start;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   text-align: center;
   background-color: #ffc772;
@@ -34,36 +34,29 @@ html {
   height: 100vh;
   display: flex;
   justify-content: center;
-  /* Center horizontally */
   align-items: center;
-  /* Center vertically */
   position: relative;
-
 }
 
 .sidebar {
   position: relative;
   width: 20%;
   background-color: #FFAF61;
-  padding:35px;
+  padding: 35px;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
-
 
 .sidebar h1 {
   font-size: 50px;
   margin-bottom: 20px;
   text-align: center;
-  padding: 10px 0; /* Add vertical padding */
+  padding: 10px 0;
 }
 
-/* sidebar buttons */
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  /* align-items: center; */
 }
 
 .button {
@@ -71,88 +64,60 @@ html {
   padding: 10px 15px;
   text-decoration: none;
   background-color: #d16533;
-  /* Default background same as sidebar */
   color: white;
-  /* Default text color */
   border: 2px solid white;
-  /* Add a border for hover effect */
   border-radius: 5px;
-  /* Rounded corners */
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  /* Align text to the left */
   transition: all 0.3s ease;
-  /* Smooth hover effect */
-
 }
 
 .button:hover {
   background-color: white;
-  /* White background on hover */
   color: #d16533;
-  /* Orange text color on hover */
   border-color: #d16533;
-  /* Border matches hover text color */
 }
 
 .logo {
   position: absolute;
-  /* Allows absolute positioning */
   top: 5%;
-  /* Align to the top edge */
   left: 0;
-  /* Align to the left edge */
   padding: 10px;
-  /* Optional: Add some spacing from edges */
 }
 
 .logo img {
   width: 270px;
-  /* Set desired width */
   height: auto;
-  /* Maintain aspect ratio */
 }
 
-/* Pokeball */
 :root {
   --poke-ball-size: 34vw;
-
   --center-circle-size: calc(var(--poke-ball-size) / 4);
-
   --inner-circle-size: calc(var(--center-circle-size) / 2.5);
-
   --border-width: calc(var(--poke-ball-size) / 20);
-
 }
 
-/* Poké Ball container */
 .poke-ball {
   width: var(--poke-ball-size);
   height: var(--poke-ball-size);
   position: absolute;
   top: 50%;
   right: calc(var(--poke-ball-size) / -1.8);
-  /* Moves half of the Poké Ball outside the right edge */
   transform: translateY(-50%);
   border-radius: 50%;
-  /* Makes it a circle */
   overflow: hidden;
   border: var(--border-width) solid #232323;
-  /* Border scales proportionally */
 }
 
-/* Top half of the Poké Ball */
 .top-half {
   width: 100%;
   height: 50%;
   background-color: #d16533;
-  /* Orange color */
   position: absolute;
   top: 0;
 }
 
-/* Bottom half of the Poké Ball */
 .bottom-half {
   width: 100%;
   height: 50%;
@@ -161,18 +126,15 @@ html {
   bottom: 0;
 }
 
-/* Middle black line */
 .middle-line {
   width: 100%;
   height: calc(var(--border-width) * 1.8);
-  /* Line thickness scales with border size */
   background-color: #232323;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* Outer circle at the center */
 .center-circle {
   width: var(--center-circle-size);
   height: var(--center-circle-size);
@@ -186,46 +148,16 @@ html {
   z-index: 2;
 }
 
-/* Base styles for arrows */
 .arrow {
   position: absolute;
   width: 18rem;
   height: 0.5rem;
   background-color: #232323;
-  /* Arrow color */
   top: calc(10vw + var(--index) * 2.9vw);
   right: 16vh;
   left: 55vw;
-  display: inline-block;
   max-width: 500px;
-  /* Limit the maximum length of the arrow */
   transition: width 0.3s ease;
-  /* Smooth transition when resizing */
-}
-
-/* Arrowhead
-.arrow::before {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: #232323;
-  transform: rotate(45deg);
-  top: -50%;
-  right: 23vh;
-} */
-
-.arrow-button::before {
-  content: "";
-  position: absolute;
-  left: -60px;
-  /* Extend clickable range to the left */
-  right: -60px;
-  /* Extend clickable range to the right */
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-  /* Keeps it behind the button visually */
 }
 
 .arrow-button {
@@ -233,43 +165,26 @@ html {
   top: calc(-0.7vw + var(--index) * 0.01vw);
   right: 30vh;
   padding: 6px 30px;
-
   background-color: #232323;
-  /* Default background same as sidebar */
   color: white;
-  /* Default text color */
   border-radius: 10px;
-  /* Rounded corners */
   font-size: 14px;
   font-weight: bold;
   text-align: center;
-  /* Align text to the left */
   transition: all 0.3s ease;
-  /* Smooth hover effect */
 }
 
 .arrow-button:hover {
   background-color: white;
-  /* White background on hover */
   color: #d16533;
-  /* Orange text color on hover */
-  border-color: #232323;
-  /* Border matches hover text color */
 }
-
-
-
 
 .animated-image {
   position: absolute;
   bottom: 20px;
-  /* Adjust spacing as needed */
   right: 20px;
-  /* Adjust spacing as needed */
   width: 420px;
-  /* Set the width of the images */
   height: 400px;
-  /* Set the height of the images */
   background-size: cover;
   background-repeat: repeat;
   animation: frameAnimation 1s steps(2) infinite;
@@ -279,36 +194,26 @@ html {
   0% {
     background-image: url('assets/ani-1.png');
   }
-
   100% {
     background-image: url('assets/ani-2.png');
   }
 }
 
-
 .intro-box {
   position: relative;
   background-color: #fefae0;
-  /* Light background color */
   border: 15px solid #d97746;
-  /* Border color matching the design */
   border-radius: 10px;
-  /* Rounded corners */
   padding: 10px;
-  /* Space inside the box */
   margin: 5px;
-  /* Space outside the box */
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  /* Optional shadow for depth */
   width: clamp(30px, 50%, 60vw);
   left: 150px;
-  height: auto;
   margin-left: -20vw;
 }
 
 .intro-box h2 {
   margin-top: 0;
-  font-family: Arial, sans-serif;
   font-weight: bold;
   color: #333;
   font-size: 2vw;
@@ -316,10 +221,8 @@ html {
 
 .intro-box p {
   font-size: 2vw;
-  font-family: Arial, sans-serif;
   line-height: 3vw;
   color: #333;
-
 }
 
 .intro-box ul {
@@ -330,37 +233,21 @@ html {
 
 .intro-box ul li {
   font-size: 1vw;
-  font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #555;
   font-weight: bold;
 }
 
-.intro-box ul .p2 {
-  font-size: 1vw;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  max-width: 80%;
-  margin-bottom: 20px;
-
-}
-
-
 .gif-container {
   position: absolute;
   bottom: 10px;
-  /* Adjust as needed */
   right: 10px;
-  /* Adjust as needed */
 }
 
 .animated-gif {
   width: 25vw;
-  /* Adjust the size as needed */
   height: auto;
-  /* Maintain aspect ratio */
-  z-index: 1; /* Ensure it appears above the intro box */
+  z-index: 1;
 }
 
 .popup-box {
@@ -369,18 +256,10 @@ html {
   border: 1px solid black;
   padding: 10px;
   position: absolute;
-  /* Position is set dynamically in JS */
   z-index: 100;
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-/* .popup-box img {
-  max-width: 200px;
-  height: auto;
-  display: block;
-  margin-bottom: 10px;
-} */
 
 .popup-box p {
   font-size: 14px;
@@ -391,8 +270,6 @@ html {
 main {
   padding: 2rem;
   display: grid;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 section {
@@ -419,52 +296,20 @@ svg {
   justify-content: center;
   align-items: center;
   width: 30%;
-  position: relative; /* Allows use of top/left properties */
-  top: 50px; /* Moves it 50px down */
-  right: 380px; /* Moves it 100px to the right */
+  position: relative;
+  top: 50px;
+  right: 380px;
 }
 
-#view1,
-#view2,
-#view3,
-#view4,
-#view5 {
+#view{
   width: 80%;
   height: 50%;
   max-width: 200px;
   position: absolute;
   top: 1vw;
   left: 5px;
-  background-color: white; /* Optional for clarity */
+  background-color: white;
 }
-
-/* #view1 {
-  width: 800px;
-  height: 500px;
-  border: 1px solid red; 
-
-}
-
-#view2 {
-  width: 800px;
-  height: 500px;
-  border: 1px solid rgb(0, 123, 255); 
-
-}
-
-#view3 {
-  width: 800px;
-  height: 500px;
-  border: 1px solid rgb(0, 123, 255); 
-
-}
-
-#view4 {
-  width: 800px;
-  height: 500px;
-  border: 1px solid rgb(0, 123, 255); 
-
-} */
 
 .tooltip {
   position: absolute;
@@ -480,16 +325,15 @@ svg {
 
 @media (max-width: 768px) {
   .container {
-      width: 100%;
-      padding: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
   }
 
   .main-content {
-      width: 100%;
-      margin-left: 0; /* Remove left margin for sidebar */
+    width: 100%;
   }
 
   .sidebar {
-      display: none; /* Hide the sidebar on smaller screens */
+    display: none;
   }
 }
