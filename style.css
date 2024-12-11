@@ -92,7 +92,7 @@ html {
 }
 
 :root {
-  --poke-ball-size: 34vw;
+  --poke-ball-size: 26vw;
   --center-circle-size: calc(var(--poke-ball-size) / 4);
   --inner-circle-size: calc(var(--center-circle-size) / 2.5);
   --border-width: calc(var(--poke-ball-size) / 20);
