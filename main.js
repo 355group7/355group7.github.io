@@ -324,8 +324,9 @@ async function visuals1() {
       "with wing": d3.symbolCross
     };
   
-    // SVG container
-    const svg = d3.select("#chart")
+    // Append SVG container
+    const svg = d3
+      .select("#view")
       .append("svg")
       .attr("width", width)
       .attr("height", height)
