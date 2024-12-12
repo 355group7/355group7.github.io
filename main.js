@@ -6,7 +6,7 @@ let svg, regionGroup;
 let xScale, yScale, colorScale;
 let xAxis, yAxis;
 let regions, maxRanking;
-let pokemondata, pokemondata1;
+let pokemondata;
 
 
 // Add event listener for the Pokemon title
@@ -284,93 +284,94 @@ async function visuals0() {
 }
 
 async function visuals1() {
-    pokemondata1 = await d3.csv("assets/355M1.csv", d3.autoType);
-    console.log(pokemondata1);
-    // Filter dataset
-    pokemondata1 = pokemondata1.filter(
-    (d) => d.evolution_stage === "Base" && d.region !== "Overall"
-  );
+    const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
-  // Convert votes to a number
-  pokemondata1.forEach(d => {
-    d.votes = +d.votes; });
+    // Filter dataset for base evolution stage
+    const filteredData = pokemondata.filter(
+      (d) => d.evolution_stage === "base" && d.region !== "Overall"
+    );
   
-
-  // Group data by region
-  const regions = Array.from(new Set(pokemondata1.map(d => d.region)));
-
-  // Define dimensions
-  const margin = { top: 50, right: 30, bottom: 60, left: 50 };
-  const width = 800;
-  const height = 400;
-  const chartWidth = (width - margin.left - margin.right) / regions.length;
-  const chartHeight = height - margin.top - margin.bottom;
-
-
-  svg = d3
-  .select("#view")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height)
-  .attr("transform", "translate(0, 50)"); 
-
-// Scales
-const xScale = d3.scalePoint()
-.domain(pokemondata1.map(d => d["pokemon"]))
-.range([0, chartWidth]);
-
-const yScale = d3.scaleLinear()
-.domain([0, d3.max(pokemondata1, d => d.votes)]) 
-.range([chartHeight, 0])
-.nice();
-
-const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
-.domain([...new Set(pokemondata1.map(d => d.region))]);
-
-const shapeScale = d3.scaleOrdinal(d3.symbols)
-.domain([...new Set(pokemondata1.map(d => d.tail))]);
-
-const shapeGenerator = d3.symbol().size(100);
-
-  // Axes
-  svg.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(xScale))
-    .selectAll("text")
-    .attr("transform", "rotate(-45)")
-    .style("text-anchor", "end");
-
-  svg.append("g")
-    .call(d3.axisLeft(yScale));
-
-// Group data by region for line creation
-const nestedData = d3.group(pokemondata1, d => d.region);
-
-// Draw lines for each region
-nestedData.forEach((regionData, region) => {
-  const line = d3.line()
-    .x(d => xScale(d["pokemon"]))
-    .y(d => yScale(d.votes));
-
-  svg.append("path")
-    .datum(regionData)
-    .attr("fill", "none")
-    .attr("stroke", colorScale(region))
-    .attr("stroke-width", 2)
-    .attr("d", line);
-});
-
-// Draw shapes (points) for each Pokémon
-svg.selectAll(".point")
-  .data(pokemondata1)
-  .enter()
-  .append("path")
-  .attr("d", d => shapeGenerator.type(shapeScale(d.tail))())
-  .attr("transform", d => `translate(${xScale(d["pokemon name"])},${yScale(d.votes)})`)
-  .attr("fill", d => colorScale(d.region));
-};
-
-//render();
+    // Dimensions
+    const margin = { top: 50, right: 30, bottom: 60, left: 100 };
+    const width = 500;
+    const height = 500;
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+  
+    // Scales
+    const xScale = d3.scalePoint()
+      .domain([...new Set(filteredData.map(d => d.region))])
+      .range([0, chartWidth])
+      .padding(0.5);
+  
+    const yScale = d3.scalePoint()
+      .domain([...new Set(filteredData.map(d => d.pokemon))])
+      .range([chartHeight, 0]);
+  
+    const sizeScale = d3.scaleLinear()
+      .domain(d3.extent(filteredData, d => d.votes))
+      .range([4, 12]);
+  
+    const colorScale = d3.scaleOrdinal()
+      .domain([...new Set(filteredData.map(d => d["Body shape"]))])
+      .range(d3.schemeTableau10);
+  
+    const shapeMap = {
+      "with bipedal": d3.symbolTriangle,
+      "with quadrup": d3.symbolSquare,
+      "with a head and legs": d3.symbolCircle,
+      "with fins": d3.symbolDiamond,
+      "with wing": d3.symbolCross
+    };
+  
+    // SVG container
+    const svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+    // Axes
+    svg.append("g")
+      .attr("transform", `translate(0, ${chartHeight})`)
+      .call(d3.axisBottom(xScale))
+      .selectAll("text")
+      .attr("transform", "rotate(-45)")
+      .style("text-anchor", "end");
+  
+    svg.append("g")
+      .call(d3.axisLeft(yScale));
+  
+    // Points
+    svg.selectAll(".point")
+      .data(filteredData)
+      .enter()
+      .append("path")
+      .attr("class", "point")
+      .attr("transform", d => `translate(${xScale(d.region)}, ${yScale(d.pokemon)})`)
+      .attr("d", d => d3.symbol().type(shapeMap[d["Body shape"]]).size(sizeScale(d.votes) * 10)())
+      .attr("fill", d => colorScale(d["Body shape"]))
+      .attr("stroke", "black")
+      .attr("opacity", 0.8);
+  
+    // Add Legend
+    const legend = svg.append("g")
+      .attr("transform", `translate(${chartWidth + 20}, 20)`);
+  
+    Object.entries(shapeMap).forEach(([shape, symbol], i) => {
+      legend.append("path")
+        .attr("d", d3.symbol().type(symbol).size(100)())
+        .attr("transform", `translate(0, ${i * 20})`)
+        .attr("fill", colorScale(shape));
+  
+      legend.append("text")
+        .attr("x", 20)
+        .attr("y", i * 20 + 5)
+        .text(shape)
+        .attr("alignment-baseline", "middle");
+    });
+  }
 
 async function visuals2() {
     const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
@@ -460,22 +461,15 @@ async function visuals2() {
 
     // Points
     svg.selectAll(".point")
-      .data(filteredData)
-      .enter()
-      .append("path")
-      .attr("transform", d => `translate(${xScale(d.region)}, ${yScale(d.votes)})`)
-      .attr("d", d => {
-        const size = sizeScale(d.votes);
-        if (shapeMap[d.type] === "circle") {
-          return d3.symbol().type(d3.symbolCircle).size(size * 20)();
-        } else if (shapeMap[d.type] === "triangle") {
-          return d3.symbol().type(d3.symbolTriangle).size(size * 20)();
-        } else if (shapeMap[d.type] === "square") {
-          return d3.symbol().type(d3.symbolSquare).size(size * 20)();
-        }
-      })
-      .attr("fill", d => colorScale(d.type))
-      .attr("opacity", 0.8);
+    .data(filteredData)
+    .enter()
+    .append("image")
+    .attr("x", d => xScale(d.region) - 10) // Adjust x position to center the image
+    .attr("y", d => yScale(d.votes) - 10) // Adjust y position to center the image
+    .attr("width", 20)                    // Set the image width
+    .attr("height", 20)                   // Set the image height
+    .attr("href", d => `assets/images/${d.type}.png`) // Dynamically load the image based on type
+    .attr("opacity", 1);
 
 // Add a group to hold the points and the PNGs
 const pointsGroup = svg.append("g").attr("class", "points-group");
@@ -496,7 +490,7 @@ pointsGroup.selectAll(".point")
     }
   })
   .attr("fill", d => colorScale(d.type))
-  .attr("opacity", 0.8)
+  .attr("opacity", 0)
   .on("mouseover", function (event, d) {
     // Create a PNG image element dynamically using the image field from the data
     svg.append("image")
@@ -612,7 +606,7 @@ pointsGroup.selectAll(".point")
       .attr("d", ([, values]) => line(values)) // Generate the path
       .attr("fill", "none")
       .attr("stroke", ([region]) => colorScale(region)) // Color by region
-      .attr("stroke-width", 2);
+      .attr("stroke-width", 2)
   
     // Add legend for regions
     const legend = svg
@@ -646,7 +640,20 @@ pointsGroup.selectAll(".point")
       .attr("cy", (d) => yScale(d.votes))
       .attr("r", 5)
       .attr("fill", (d) => colorScale(d.region))
-      .attr("opacity", 0.8);
+      .attr("opacity", 0.8)
+      .on("mouseover", function (event, d) {
+        // Create a PNG image element dynamically using the image field from the data
+        svg.append("image")
+          .attr("cx", xScale(d.region) - 20) // Adjust the position of the PNG image
+          .attr("cy", yScale(d.votes) - 70) // Position the image above the point
+          .attr("width", 60)               // Set image width
+          .attr("height", 60)              // Set image height
+          .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
+          .attr("class", "hover-image");   // Add a class for easy selection
+      })
+      .on("mouseout", function () {
+        // Remove the PNG image on mouseout
+        svg.selectAll(".hover-image").remove();   });
   }
 
 async function runApp() {
