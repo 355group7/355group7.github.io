@@ -293,19 +293,19 @@ async function visuals1() {
   
   // Dimensions
   const margin = { top: 50, right: 30, bottom: 60, left: 100 };
-  const width = 500;
+  const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
   
   // Scales
   const xScale = d3.scalePoint()
-    .domain([...new Set(filteredData.map(d => d.region))])
+    .domain([...new Set(filteredData.map(d => d.pokemon))])  // Use 'pokemon' for the x-axis
     .range([0, chartWidth])
     .padding(0.5);
 
   const yScale = d3.scalePoint()
-    .domain([...new Set(filteredData.map(d => d.pokemon))])
+    .domain([...new Set(filteredData.map(d => d.region))])  // Use 'region' for the y-axis
     .range([chartHeight, 0]);
 
   const sizeScale = d3.scaleLinear()
@@ -351,8 +351,8 @@ async function visuals1() {
     .enter()
     .append("image")
     .attr("class", "point")
-    .attr("x", d => xScale(d.region) - 20)  // Adjust image position
-    .attr("y", d => yScale(d.pokemon) - 20) // Adjust image position
+    .attr("x", d => xScale(d.pokemon) - 20)  // Adjust image position (use 'pokemon' for x)
+    .attr("y", d => yScale(d.region) - 20) // Adjust image position (use 'region' for y)
     .attr("width", 40)  // Set image width
     .attr("height", 40) // Set image height
     .attr("href", d => shapeImageMap[d["Body shape"]])  // Set the image source based on Body shape
@@ -381,8 +381,8 @@ async function visuals1() {
   svg.selectAll(".point")
     .on("mouseover", function(event, d) {
       svg.append("image")
-        .attr("x", xScale(d.region) - 20)
-        .attr("y", yScale(d.pokemon) - 70)
+        .attr("x", xScale(d.pokemon) - 20)
+        .attr("y", yScale(d.region) - 70)
         .attr("width", 60)
         .attr("height", 60)
         .attr("href", `assets/${d.image}`)
