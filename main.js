@@ -627,54 +627,45 @@ pointsGroup.selectAll(".point")
       .attr("fill", "none")
       .attr("stroke", ([region]) => colorScale(region)) // Color by region
       .attr("stroke-width", 2)
+
   
-    // Add legend for regions
-    const legend = svg
-      .append("g")
-      .attr("transform", `translate(${chartWidth - 50}, 0)`);
-  
-    [...regions.keys()].forEach((region, i) => {
-      legend
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", i * 20)
-        .attr("width", 15)
-        .attr("height", 15)
-        .attr("fill", colorScale(region));
-  
-      legend
-        .append("text")
-        .attr("x", 20)
-        .attr("y", i * 20 + 12)
-        .text(region)
-        .attr("font-size", "12px")
-        .attr("alignment-baseline", "middle");
-    });
-  
-    // Add points on the lines
-    svg.selectAll(".point")
-      .data(filteredData)
-      .enter()
-      .append("circle")
-      .attr("cx", (d) => xScale(d["pokemon"]))
-      .attr("cy", (d) => yScale(d.votes))
-      .attr("r", 5)
-      .attr("fill", (d) => colorScale(d.region))
-      .attr("opacity", 0.8)
-      .on("mouseover", function (event, d) {
-        // Create a PNG image element dynamically using the image field from the data
-        svg.append("image")
-          .attr("cx", xScale(d.region) - 20) // Adjust the position of the PNG image
-          .attr("cy", yScale(d.votes) - 70) // Position the image above the point
-          .attr("width", 60)               // Set image width
-          .attr("height", 60)              // Set image height
-          .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
-          .attr("class", "hover-image");   // Add a class for easy selection
-      })
-      .on("mouseout", function () {
-        // Remove the PNG image on mouseout
-        svg.selectAll(".hover-image").remove();   });
-  }
+   // Add points on the lines
+   svg.selectAll(".point")
+   .data(filteredData)
+   .enter()
+   .append("circle")
+   .attr("cx", (d) => xScale(d["pokemon"]))
+   .attr("cy", (d) => yScale(d.votes))
+   .attr("r", 5)
+   .attr("fill", (d) => colorScale(d.region))
+   .attr("opacity", 0.8)
+   .on("mouseover", function (event, d) {
+     // Create a PNG image element dynamically using the image field from the data
+     svg.append("image")
+       .attr("cx", xScale(d.region) - 20) // Adjust the position of the PNG image
+       .attr("cy", yScale(d.votes) - 70) // Position the image above the point
+       .attr("width", 60)               // Set image width
+       .attr("height", 60)              // Set image height
+       .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
+       .attr("class", "hover-image");   // Add a class for easy selection
+   })
+   .on("mouseout", function () {
+     // Remove the PNG image on mouseout
+     svg.selectAll(".hover-image").remove();
+   });
+
+ // Add Region Name labels above each group of Pokémon
+ [...regions.keys()].forEach((region, i) => {
+   const avgX = d3.mean(regions.get(region), (d) => xScale(d["pokemon"])); // Find the average x position for the region
+   svg.append("text")
+     .attr("x", avgX) // Position the label based on the average x of the region
+     .attr("y", -10) // Position above the points
+     .attr("text-anchor", "middle")
+     .text(region)
+     .attr("font-size", "14px")
+     .attr("fill", colorScale(region));
+ });
+}
 
 async function runApp() {
     document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
