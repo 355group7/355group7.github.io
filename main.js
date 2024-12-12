@@ -46,7 +46,6 @@ let activeButton = null;
 //     }
 // };
 
-
 function drawPokeballWithButtons() {
   // Select the container for the Poké Ball
   const container = d3.select("#poke-ball-container")
@@ -56,8 +55,8 @@ function drawPokeballWithButtons() {
 
   // Create an SVG inside the container
   const svg = container.append("svg")
-    .attr("width", "100vw") // Full width for responsive layout
-    .attr("height", "100vh") // Full height for responsive layout)
+    .attr("width", "100vw") 
+    .attr("height", "100vh") 
     .style("position", "absolute");
 
   // Define constants for size calculations
@@ -70,9 +69,6 @@ function drawPokeballWithButtons() {
     .attr("class", "poke-ball-group")
     .attr("transform", `translate(${window.innerWidth / 1.25}, ${window.innerHeight / 2})`);
 
-  const cxSize = 40;
-  const cySize = 40;
-
   // Draw the Poké Ball
   pokeBallGroup.append("circle")
     .attr("cx", 0)
@@ -81,7 +77,6 @@ function drawPokeballWithButtons() {
     .attr("fill", "#d16533")
     .attr("stroke", "#232323")
     .attr("stroke-width", borderWidth);
-
 
   const arcGenerator = d3.arc()
   .innerRadius(0)
