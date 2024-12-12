@@ -68,7 +68,7 @@ function drawPokeballWithButtons() {
   // Group for Poké Ball and buttons
   const pokeBallGroup = svg.append("g")
     .attr("class", "poke-ball-group")
-    .attr("transform", `translate(${window.innerWidth / 2}, ${window.innerHeight / 2})`);
+    .attr("transform", `translate(${window.innerWidth / 1.25}, ${window.innerHeight / 2})`);
 
   const cxSize = 40;
   const cySize = 40;
@@ -82,11 +82,18 @@ function drawPokeballWithButtons() {
     .attr("stroke", "#232323")
     .attr("stroke-width", borderWidth);
 
-  pokeBallGroup.append("circle")
-    .attr("cx", 0)
-    .attr("cy", pokeBallSize / 5)
-    .attr("r", pokeBallSize / 2)
-    .attr("fill", "#ffffff");
+
+  const arcGenerator = d3.arc()
+  .innerRadius(0)
+  .outerRadius(pokeBallSize / 2)
+  .startAngle(-Math.PI/2)
+  .endAngle(-Math.PI *1.5);
+
+  pokeBallGroup.append("path")
+  .attr("d", arcGenerator)
+  .attr("fill", "#ffffff")
+  .attr("stroke", "#232323")
+  .attr("stroke-width", borderWidth);
 
   pokeBallGroup.append("rect")
     .attr("x", -pokeBallSize / 2)
@@ -116,7 +123,7 @@ function drawPokeballWithButtons() {
     .enter()
     .append("g")
     .attr("class", "arrow-button")
-    .attr("transform", d => `translate(${d.xOffset}, ${d.yOffset})`)
+    .attr("transform", d => `translate(${d.xOffset - 300}, ${d.yOffset})`)
     .on("click", (event, d) => {
       console.log(`Button ${d.label} clicked`);
       // Trigger visualization functions
