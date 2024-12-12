@@ -292,7 +292,7 @@ async function visuals1() {
   );
   
   // Dimensions
-  const margin = { top: 50, right: 50, bottom: 60, left: 50 };
+  const margin = { top: 50, right: 200, bottom: 60, left: 50 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
