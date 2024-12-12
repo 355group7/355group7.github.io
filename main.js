@@ -355,6 +355,19 @@ async function visuals1() {
       .attr("fill", d => colorScale(d["Body shape"]))
       .attr("stroke", "black")
       .attr("opacity", 0.8);
+      .on("mouseover", function (event, d) {
+        // Create a PNG image element dynamically using the image field from the data
+        svg.append("image")
+          .attr("cx", xScale(d.region) - 20) // Adjust the position of the PNG image
+          .attr("cy", yScale(d.votes) - 70) // Position the image above the point
+          .attr("width", 60)               // Set image width
+          .attr("height", 60)              // Set image height
+          .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
+          .attr("class", "hover-image");   // Add a class for easy selection
+      })
+      .on("mouseout", function () {
+        // Remove the PNG image on mouseout
+        svg.selectAll(".hover-image").remove();   });
   
     // Add Legend
     const legend = svg.append("g")
