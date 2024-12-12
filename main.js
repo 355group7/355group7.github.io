@@ -355,7 +355,7 @@ async function visuals1() {
       .attr("fill", d => colorScale(d["Body shape"]))
       .attr("stroke", "black")
       .attr("opacity", 0.8);
-      .on("mouseover", function (event, d) {
+      on("mouseover", function (event, d) {
         // Create a PNG image element dynamically using the image field from the data
         svg.append("image")
           .attr("cx", xScale(d.region) - 20) // Adjust the position of the PNG image
