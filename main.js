@@ -304,9 +304,9 @@ async function visuals1() {
     .range([0, chartWidth])
     .padding(0.5);
 
-  const yScale = d3.scalePoint()
-    .domain([...new Set(filteredData.map(d => d.region))])  // Use 'region' for the y-axis
-    .range([chartHeight, 0]);
+    const yScale = d3.scaleLinear()
+    .domain([0, d3.max(filteredData, d => d.votes)])  // Use 'votes' for the y-axis
+    .range([chartHeight, 0]);  // Invert the scale (higher votes at the top)
 
   const sizeScale = d3.scaleLinear()
     .domain(d3.extent(filteredData, d => d.votes))
@@ -352,7 +352,7 @@ async function visuals1() {
     .append("image")
     .attr("class", "point")
     .attr("x", d => xScale(d.pokemon) - 20)  // Adjust image position (use 'pokemon' for x)
-    .attr("y", d => yScale(d.region) - 20) // Adjust image position (use 'region' for y)
+    .attr("y", d => yScale(d.votes) - 20) // Adjust image position (use 'votes' for y)
     .attr("width", 40)  // Set image width
     .attr("height", 40) // Set image height
     .attr("href", d => shapeImageMap[d["Body shape"]])  // Set the image source based on Body shape
@@ -382,7 +382,7 @@ async function visuals1() {
     .on("mouseover", function(event, d) {
       svg.append("image")
         .attr("x", xScale(d.pokemon) - 20)
-        .attr("y", yScale(d.region) - 70)
+        .attr("y", yScale(d.votes) - 70)
         .attr("width", 60)
         .attr("height", 60)
         .attr("href", `assets/${d.image}`)
