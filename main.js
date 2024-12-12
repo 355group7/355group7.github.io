@@ -589,8 +589,11 @@ pointsGroup.selectAll(".point")
     const yAxis = d3.axisLeft(yScale);
   
     svg.append("g")
-      .attr("transform", `translate(0, ${chartHeight})`)
-      .call(xAxis);
+    .attr("transform", `translate(0, ${chartHeight})`)
+    .call(d3.axisBottom(xScale))
+    .selectAll("text")
+    .attr("transform", "rotate(-45)")
+    .style("text-anchor", "end");
   
     svg.append("g").call(yAxis);
   
