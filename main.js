@@ -1,13 +1,11 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-
 let data; 
 let svg, regionGroup;
 let xScale, yScale, colorScale;
 let xAxis, yAxis;
 let regions, maxRanking;
 let pokemondata;
-
 
 //title
 document.querySelector(".sidebar h1").addEventListener("click", function () {
@@ -56,9 +54,9 @@ function drawPokeballWithButtons() {
 
   //sizes
   const pokeBallSize = Math.min(window.innerWidth, window.innerHeight) * 0.28;
-  const centerX = window.innerWidth * 0.8; // Center horizontally
-  const centerY = window.innerHeight * 0.5; // Center vertically
-  const arrowButtonOffset = pokeBallSize / 2 + 20; // Distance of buttons from Poké Ball
+  const centerX = window.innerWidth * 0.8; 
+  const centerY = window.innerHeight * 0.5; 
+  const arrowButtonOffset = pokeBallSize / 2; 
   const centerCircleSize = pokeBallSize / 4;
   const borderWidth = pokeBallSize / 20;
 
@@ -105,10 +103,10 @@ function drawPokeballWithButtons() {
 
   // Draw the arrow buttons
   const arrowButtonData = [
-    { index: 0, label: "Vis1", xOffset: -pokeBallSize / 1.8, yOffset: -pokeBallSize / 4 },
-    { index: 1, label: "Vis2", xOffset: -pokeBallSize / 1.8, yOffset: -pokeBallSize / 8 },
-    { index: 2, label: "Vis3", xOffset: -pokeBallSize / 1.8, yOffset: pokeBallSize / 8 },
-    { index: 3, label: "Vis4", xOffset: -pokeBallSize / 1.8, yOffset: pokeBallSize / 4 },
+    { index: 0, label: "Vis1", xOffset: -arrowButtonOffset, yOffset: -pokeBallSize / 4 },
+    { index: 1, label: "Vis2", xOffset: -arrowButtonOffset, yOffset: -pokeBallSize / 8 },
+    { index: 2, label: "Vis3", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 8 },
+    { index: 3, label: "Vis4", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 4 },
   ];
 
   const arrowButtons = pokeBallGroup.selectAll(".arrow-button")
