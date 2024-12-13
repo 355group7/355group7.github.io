@@ -117,8 +117,10 @@ function drawPokeballWithButtons() {
     .append("g")
     .attr("class", "arrow-button")
     .attr("transform", d => `translate(${d.xOffset - 300}, ${d.yOffset})`)
+
     .on("click", (event, d) => {
       console.log(`Button ${d.label} clicked`);
+
       // Trigger visualization functions
       if (d.index === 0) visuals0();
       if (d.index === 1) visuals1();
@@ -126,16 +128,16 @@ function drawPokeballWithButtons() {
       if (d.index === 3) visuals3();
     });
 
-  // Add Button Shapes
+  // Add button shapes
   arrowButtons.append("rect")
     .attr("x", 30)
     .attr("y", -10)
-    .attr("width", 14 * 16) // 18rem equivalent
-    .attr("height", 25) // Height of the button
+    .attr("width", 14 * 16) 
+    .attr("height", 25) 
     .attr("fill", "#232323")
     .attr("rx", 5); // Rounded corners
 
-  // Add Button Labels
+  // Add Button labels (texts)
   arrowButtons.append("text")
     .attr("x", 18 * 8) // Center text in button (half of 18rem)
     .attr("y", 5)
