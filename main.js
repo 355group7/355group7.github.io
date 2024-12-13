@@ -9,12 +9,7 @@ let regions, maxRanking;
 let pokemondata;
 
 
-// Add event listener for the Pokemon title
-document.querySelector(".sidebar h1").addEventListener("click", function () {
-    // Redirect to the front page (index.html)
-    window.location.href = "index.html"; // Replace with your front page file
-});
-// Add event listener for the Pokemon title
+//title
 document.querySelector(".sidebar h1").addEventListener("click", function () {
     // Redirect to the front page (index.html)
     window.location.href = "index.html"; // Replace with your front page file
@@ -47,29 +42,32 @@ let activeButton = null;
 // };
 
 function drawPokeballWithButtons() {
-  // Select the container for the Poké Ball
+  //draw in what section
   const container = d3.select("#poke-ball-container")
     .style("position", "relative")
     .style("width", "100%")
-    .style("height", "100%");
+    .style("height", "100vh");
 
   // Create an SVG inside the container
   const svg = container.append("svg")
-    .attr("width", "100vw") 
-    .attr("height", "100vh") 
+    .attr("width", "100%") 
+    .attr("height", "100%") 
     .style("position", "absolute");
 
-  // Define constants for size calculations
-  const pokeBallSize = window.innerWidth * 0.24;
+  //sizes
+  const pokeBallSize = Math.min(window.innerWidth, window.innerHeight) * 0.28;
+  const centerX = window.innerWidth * 0.8; // Center horizontally
+  const centerY = window.innerHeight * 0.5; // Center vertically
+  const arrowButtonOffset = pokeBallSize / 2 + 20; // Distance of buttons from Poké Ball
   const centerCircleSize = pokeBallSize / 4;
   const borderWidth = pokeBallSize / 20;
 
-  // Group for Poké Ball and buttons
+  // Group for pokeball and buttons
   const pokeBallGroup = svg.append("g")
     .attr("class", "poke-ball-group")
-    .attr("transform", `translate(${window.innerWidth / 1.25}, ${window.innerHeight / 2})`);
+    .attr("transform", `translate(${centerX}, ${centerY})`);
 
-  // Draw the Poké Ball
+  // Draw the ball
   pokeBallGroup.append("circle")
     .attr("cx", 0)
     .attr("cy", 0)
@@ -105,7 +103,7 @@ function drawPokeballWithButtons() {
     .attr("stroke", "#232323")
     .attr("stroke-width", borderWidth / 2);
 
-  // Draw the Arrow Buttons
+  // Draw the arrow buttons
   const arrowButtonData = [
     { index: 0, label: "Vis1", xOffset: -pokeBallSize / 1.8, yOffset: -pokeBallSize / 4 },
     { index: 1, label: "Vis2", xOffset: -pokeBallSize / 1.8, yOffset: -pokeBallSize / 8 },
@@ -130,10 +128,10 @@ function drawPokeballWithButtons() {
 
   // Add Button Shapes
   arrowButtons.append("rect")
-    .attr("x", 0)
+    .attr("x", 30)
     .attr("y", -10)
-    .attr("width", 18 * 16) // 18rem equivalent
-    .attr("height", 20) // Height of the button
+    .attr("width", 14 * 16) // 18rem equivalent
+    .attr("height", 25) // Height of the button
     .attr("fill", "#232323")
     .attr("rx", 5); // Rounded corners
 
