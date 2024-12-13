@@ -137,7 +137,7 @@ function drawPokeballWithButtons() {
 
   // Add Button labels (texts)
   arrowButtons.append("text")
-    .attr("x", 18 * 8) // Center text in button (half of 18rem)
+    .attr("x", 14 * 10) 
     .attr("y", 5)
     .attr("fill", "#ffffff")
     .attr("text-anchor", "middle")
@@ -147,71 +147,6 @@ function drawPokeballWithButtons() {
     .text(d => d.label);
 }
 drawPokeballWithButtons();
-
-// Add event listeners to each arrow-button
-document.querySelectorAll(".arrow-button").forEach((button, index) => {
-    const arrow = document.querySelector(`.arrow:nth-of-type(${index + 1})`);
-
-    // Hover effect: temporarily move the button and arrow
-    button.addEventListener("mouseenter", () => {
-        if (button !== activeButton && arrow) {
-            arrow.style.transform = "translateX(-40px)";
-            button.style.transform = "translateX(-20px)";
-        }
-    });
-
-    // Reset position on mouse leave if not active
-    button.addEventListener("mouseleave", () => {
-        if (button !== activeButton && arrow) {
-            arrow.style.transform = ""; // Reset arrow
-            button.style.transform = ""; // Reset button
-        }
-    });
-
-    // Click event: make the button and arrow move permanently until another is clicked
-    button.addEventListener("click", () => {
-        // If there was a previously active button, reset its transformation and remove the box
-        if (activeButton && activeButton !== button) {
-            const activeArrow = document.querySelector(
-                `.arrow:nth-of-type(${Array.from(document.querySelectorAll(".arrow-button")).indexOf(activeButton) + 1})`
-            );
-            if (activeArrow) activeArrow.style.transform = ""; // Reset previous arrow
-            activeButton.style.transform = ""; // Reset previous button
-            document.querySelector(".popup-box")?.remove(); // Remove previous popup
-        }
-
-        // Set the current button as active
-        activeButton = button;
-
-        // Apply the transformation continuously
-        if (arrow) {
-            arrow.style.transform = "translateX(-40px)";
-            button.style.transform = "translateX(-20px)";
-        }
-
-        // Create and display the popup box
-        let popupBox = document.querySelector(".popup-box");
-        if (!popupBox) {
-            popupBox = document.createElement("div");
-            popupBox.className = "popup-box";
-            document.body.appendChild(popupBox);
-        }
-
-        // Set the content of the popup box
-        const content = buttonContent[index];
-        popupBox.innerHTML = `
-            <p>${content.text}</p>
-        `;
-
-        // Position the popup box to the left of the button
-        const rect = button.getBoundingClientRect();
-        popupBox.style.position = "absolute";
-        popupBox.style.top = `${rect.top}px`;
-        popupBox.style.left = `${rect.left - popupBox.offsetWidth - 10}px`;
-    });
-});
-
-
 
 async function visuals0() {
   pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
