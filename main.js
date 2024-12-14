@@ -459,23 +459,35 @@ pointsGroup.selectAll(".point")
     svg.selectAll(".hover-image").remove();
   });
   
-    // Add legend
-    const legend = svg.append("g")
-      .attr("transform", `translate(${chartWidth - 50}, ${margin.top})`);
-  
-    ["fire", "water", "grass"].forEach((type, i) => {
-      legend.append("path")
-        .attr("transform", `translate(0, ${i * 20})`)
-        .attr("d", d3.symbol().type(shapeMap[type] === "triangle" ? d3.symbolTriangle :
-          shapeMap[type] === "circle" ? d3.symbolCircle : d3.symbolSquare).size(100)())
-        .attr("fill", colorScale(type));
-  
-      legend.append("text")
-        .attr("x", 15)
-        .attr("y", i * 20 + 5)
-        .text(type)
-        .attr("alignment-baseline", "middle");
-    });
+// Add legend
+const legend = svg.append("g")
+  .attr("transform", `translate(${chartWidth - 50}, ${margin.top})`);
+
+// Mapping icons to types
+const iconMap = {
+  fire: "assets/icons/fire.png",   // Replace with the actual path to your fire icon
+  water: "assets/icons/water.png", // Replace with the actual path to your water icon
+  grass: "assets/icons/grass.png"  // Replace with the actual path to your grass icon
+};
+
+["fire", "water", "grass"].forEach((type, i) => {
+  // Add image for each type
+  legend.append("image")
+    .attr("x", 0)
+    .attr("y", i * 40) // Vertical spacing
+    .attr("width", 20) // Set icon width
+    .attr("height", 20) // Set icon height
+    .attr("href", iconMap[type]); // Load image dynamically based on type
+
+  // Add text label next to the image
+  legend.append("text")
+    .attr("x", 30) // Position to the right of the image
+    .attr("y", i * 40 + 15) // Align vertically with the icon
+    .text(type.charAt(0).toUpperCase() + type.slice(1)) // Capitalize first letter
+    .attr("alignment-baseline", "middle")
+    .style("font-size", "14px");
+});
+
   }
 
   async function visuals3() {
@@ -576,15 +588,15 @@ pointsGroup.selectAll(".point")
    .attr("fill", (d) => colorScale(d.region))
    .attr("opacity", 0.8)
    .on("mouseover", function (event, d) {
-     // Create a PNG image element dynamically using the image field from the data
-     svg.append("image")
-       .attr("cx", xScale(d.region) - 20) // Adjust the position of the PNG image
-       .attr("cy", yScale(d.votes) - 70) // Position the image above the point
-       .attr("width", 60)               // Set image width
-       .attr("height", 60)              // Set image height
-       .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
-       .attr("class", "hover-image");   // Add a class for easy selection
-   })
+    // Create a PNG image element dynamically using the image field from the data
+    svg.append("image")
+      .attr("x", xScale(d["pokemon"]) - 30) // Adjust the x position of the PNG image
+      .attr("y", yScale(d.votes) - 70)     // Adjust the y position of the PNG image
+      .attr("width", 60)                   // Set image width
+      .attr("height", 60)                  // Set image height
+      .attr("href", `assets/${d.image}`)   // Dynamically fetch the image path from data
+      .attr("class", "hover-image");       // Add a class for easy selection
+  })
    .on("mouseout", function () {
      // Remove the PNG image on mouseout
      svg.selectAll(".hover-image").remove();
