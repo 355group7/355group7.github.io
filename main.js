@@ -465,9 +465,9 @@ const legend = svg.append("g")
 
 // Mapping icons to types
 const iconMap = {
-  fire: "assets/icons/fire.png",   // Replace with the actual path to your fire icon
-  water: "assets/icons/water.png", // Replace with the actual path to your water icon
-  grass: "assets/icons/grass.png"  // Replace with the actual path to your grass icon
+  fire: "assets/images/fire.png",   // Replace with the actual path to your fire icon
+  water: "assets/images/water.png", // Replace with the actual path to your water icon
+  grass: "assets/images/grass.png"  // Replace with the actual path to your grass icon
 };
 
 ["fire", "water", "grass"].forEach((type, i) => {
