@@ -115,9 +115,9 @@ function drawPokeballWithButtons() {
     .append("g")
     .attr("class", "arrow-button")
     .attr("transform", d => `translate(${d.xOffset - 300}, ${d.yOffset})`)
-
     .on("click", (event, d) => {
-      console.log(`Button ${d.label} clicked`);
+      // Clear the visualization container
+      d3.select("#view").html("");
 
       // Trigger visualization functions
       if (d.index === 0) visuals0();
