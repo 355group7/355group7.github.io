@@ -403,14 +403,14 @@ async function visuals2() {
       .attr("x", chartWidth / 2)
       .attr("y", chartHeight + margin.bottom - 10)
       .attr("text-anchor", "middle")
-      .text("Regions");
+      .text("Regions in Pokemon World");
   
     svg.append("text")
       .attr("x", -chartHeight / 2)
       .attr("y", -margin.left + 10)
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
-      .text("Votes");
+      .text("fav pokemon Votes in 2019");
 
     // Points
     svg.selectAll(".point")
@@ -577,17 +577,19 @@ const iconMap = {
       .attr("stroke-width", 2)
 
   
-   // Add points on the lines
-   svg.selectAll(".point")
-   .data(filteredData)
-   .enter()
-   .append("circle")
-   .attr("cx", (d) => xScale(d["pokemon"]))
-   .attr("cy", (d) => yScale(d.votes))
-   .attr("r", 5)
-   .attr("fill", (d) => colorScale(d.region))
-   .attr("opacity", 0.8)
-   .on("mouseover", function (event, d) {
+// Add points on the lines
+svg.selectAll(".point")
+  .data(filteredData)
+  .enter()
+  .append("circle")
+  .attr("cx", (d) => xScale(d["pokemon"]))
+  .attr("cy", (d) => yScale(d.votes))
+  .attr("r", 5)
+  .attr("fill", (d) => (d.tail === 1 ? colorScale(d.region) : "rgba(0, 0, 0, 0.1)")) // Solid for tail, transparent for hollow
+  .attr("stroke", (d) => colorScale(d.region)) // Stroke matches region color
+  .attr("stroke-width", (d) => (d.tail === 1 ? 0 : 2)) // Hollow points have a stroke
+  .attr("opacity", 0.8)
+  .on("mouseover", function (event, d) {
     // Create a PNG image element dynamically using the image field from the data
     svg.append("image")
       .attr("x", xScale(d["pokemon"]) - 30) // Adjust the x position of the PNG image
@@ -597,10 +599,11 @@ const iconMap = {
       .attr("href", `assets/${d.image}`)   // Dynamically fetch the image path from data
       .attr("class", "hover-image");       // Add a class for easy selection
   })
-   .on("mouseout", function () {
-     // Remove the PNG image on mouseout
-     svg.selectAll(".hover-image").remove();
-   });
+  .on("mouseout", function () {
+    // Remove the PNG image on mouseout
+    svg.selectAll(".hover-image").remove();
+  });
+
 
  // Add Region Name labels above each group of Pokémon
  [...regions.keys()].forEach((region, i) => {
