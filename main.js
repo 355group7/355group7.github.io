@@ -39,21 +39,23 @@ let activeButton = null;
 //     }
 // };
 
-// Create a description box dynamically below the visualization
-const descriptionBox = d3.select("#view") // Append it after the visualization container
+// Create a description box dynamically
+const descriptionBox = d3.select("body")
   .append("div")
   .attr("id", "description-box")
-  .style("width", "100%")
-  .style("margin-top", "10px")
+  .style("position", "absolute")
+  .style("bottom", "20px") // Distance from bottom
+  .style("right", "20px")  // Align to the right side
+  .style("width", "300px")
   .style("padding", "10px")
-  .style("background-color", "rgba(255, 255, 255, 0.9)")
+  .style("background-color", "rgba(255, 255, 255, 0.8)")
   .style("border", "1px solid #ccc")
   .style("border-radius", "8px")
   .style("box-shadow", "0 2px 5px rgba(0,0,0,0.3)")
   .style("font-size", "14px")
   .style("color", "#333")
-  .style("text-align", "center")
   .style("display", "none"); // Initially hidden
+
 
 
   function setDescription(text) {
