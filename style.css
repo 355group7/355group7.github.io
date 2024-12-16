@@ -302,12 +302,12 @@ svg {
 }
 
 #view{
-  width: 80%;
+  width: 90%;
   height: 70%;
   max-width: 200px;
   position: absolute;
   top: 4vw;
-  left: 1vw;
+  left: 2vw;
 }
 
 .tooltip {

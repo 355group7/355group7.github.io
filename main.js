@@ -157,7 +157,7 @@ async function visuals0() {
   );
 
   // Set dimensions
-  const margin = { top: 50, right: 30, bottom: 60, left: 50 };
+  const margin = { top: 60, right: 60, bottom: 60, left: 60 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
@@ -323,7 +323,7 @@ async function visuals1() {
 
   const regions = Array.from(new Set(pokemondata.map(d => d.region)));
 
-  const margin = { top: 50, right: 30, bottom: 60, left: 50 };
+  const margin = { top: 60, right: 30, bottom: 60, left: 50 };
   const width = 800;
   const height = 400;
   const chartWidth = (width - margin.left - margin.right) / regions.length;
@@ -391,7 +391,7 @@ async function visuals2() {
   );
   
   // Dimensions
-  const margin = { top: 50, right: 200, bottom: 60, left: 50 };
+  const margin = { top: 60, right: 200, bottom: 60, left: 50 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
@@ -501,7 +501,7 @@ async function visuals2() {
     );
   
     // Set dimensions
-    const margin = { top: 50, right: 30, bottom: 60, left: 70 };
+    const margin = { top: 60, right: 30, bottom: 60, left: 70 };
     const width = 800;
     const height = 500;
     const chartWidth = width - margin.left - margin.right;
