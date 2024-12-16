@@ -157,7 +157,7 @@ async function visuals0() {
   );
 
   // Set dimensions
-  const margin = { top: 60, right: 60, bottom: 60, left: 60 };
+  const margin = { top: 60, right: 40, bottom: 60, left: 50 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
@@ -313,73 +313,92 @@ legend.append("text")
 }
 
 async function visuals1() {
-  
-  pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
-  console.log(pokemondata);
+  const pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
 
-  pokemondata = pokemondata.filter(
-    (d) => d.evolution_stage === "Base" && d.region !== "Overall"
-  );
+  // Normalize type values
+  const filteredData = pokemondata.filter(
+      d => d.evolution_stage === "Base" && d.region !== "Overall"
+  ).map(d => ({
+      ...d,
+      type: d.type.trim().toLowerCase() // Clean type values
+  }));
 
-  const regions = Array.from(new Set(pokemondata.map(d => d.region)));
-
-  const margin = { top: 60, right: 30, bottom: 60, left: 50 };
+  const margin = { top: 60, right: 60, bottom: 60, left: 60 };
   const width = 800;
-  const height = 400;
-  const chartWidth = (width - margin.left - margin.right) / regions.length;
+  const height = 500;
+  const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
 
-  svg = d3
-  .select("#view")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
+  const svg = d3
+    .select("#view")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  const xScale = d3.scalePoint().domain(["Base"]).range([0, chartWidth]);
+  const xScale = d3.scalePoint()
+    .domain(["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar"])
+    .range([chartWidth * 0.05, chartWidth * 0.8]);
+
   const yScale = d3.scaleLinear()
-    .domain([0, d3.max(pokemondata, d => d.ranking)])
-    .range([0, chartHeight])
+    .domain([0, d3.max(filteredData, d => d.votes)])
+    .range([chartHeight, 0])
     .nice();
-  const colorScale = d3.scaleOrdinal(["Water", "Grass", "Fire"], ["#1f77b4", "#2ca02c", "#d62728"]);
 
-  regions.forEach((region, i) => {
-    const regionData = pokemondata.filter(d => d.region === region);
+  const iconMap = {
+    fire: "assets/images/fire.png",
+    water: "assets/images/water.png",
+    grass: "assets/images/grass.png",
+  };
 
-    const regionGroup = svg.append("g")
-      .attr("transform", `translate(${margin.left + i * chartWidth}, ${margin.top})`);
+  const xAxis = d3.axisBottom(xScale);
+  const yAxis = d3.axisLeft(yScale);
 
-    regionGroup.append("g")
-      .attr("transform", `translate(0, ${chartHeight})`)
-      .call(d3.axisBottom(xScale));
+  svg.append("g")
+    .attr("transform", `translate(0, ${chartHeight})`)
+    .call(xAxis);
 
-    regionGroup.append("g").call(d3.axisLeft(yScale));
+  svg.append("g")
+    .call(yAxis);
 
-    regionGroup.append("text")
-      .attr("x", chartWidth / 2)
-      .attr("y", chartHeight + 40)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
-      .text("Evolution Stage");
+  svg.selectAll(".x-grid-line")
+    .data(xScale.domain())
+    .enter()
+    .append("line")
+    .attr("class", "x-grid-line")
+    .attr("x1", d => xScale(d))
+    .attr("x2", d => xScale(d))
+    .attr("y1", 0)
+    .attr("y2", chartHeight)
+    .attr("stroke", "gray")
+    .attr("stroke-dasharray", "4 4")
+    .attr("stroke-opacity", 0.5);
 
-    regionGroup.append("text")
-      .attr("x", chartWidth / 2)
-      .attr("y", -15)
-      .attr("text-anchor", "middle")
-      .attr("font-weight", "bold")
-      .text(region);
+  svg.append("text")
+    .attr("x", chartWidth / 2)
+    .attr("y", chartHeight + margin.bottom - 10)
+    .attr("text-anchor", "middle")
+    .text("Regions in Pokemon World");
 
-    regionGroup.selectAll("circle")
-      .data(regionData)
-      .enter()
-      .append("circle")
-      .attr("cx", d => xScale(d.evolution_stage))
-      .attr("cy", d => yScale(d.ranking))
-      .attr("r", 5)
-      .attr("fill", d => colorScale(d.type))
-      .attr("opacity", 0.7)
-      .on("mouseover", (event, d) => console.log(d));
-  });
-  
+  svg.append("text")
+    .attr("x", -chartHeight / 2)
+    .attr("y", -margin.left + 10)
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .text("Pokemon Votes");
+
+  // Render Points (Images)
+  svg.selectAll(".point")
+    .data(filteredData)
+    .enter()
+    .append("image")
+    .attr("x", d => xScale(d.region) - 10)
+    .attr("y", d => yScale(d.votes) - 10)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("href", d => iconMap[d.type] || "assets/images/default.png") // Fallback image
+    .attr("opacity", 1);
 }
 
 async function visuals2() {
@@ -578,7 +597,6 @@ async function visuals2() {
       .attr("stroke", ([region]) => colorScale(region)) // Color by region
       .attr("stroke-width", 2)
 
-  
 // Add points on the lines
 svg.selectAll(".point")
   .data(filteredData)
