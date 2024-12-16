@@ -146,6 +146,8 @@ function drawPokeballWithButtons() {
     .style("font-weight", "bold")
     .text(d => d.label);
 }
+
+
 drawPokeballWithButtons();
 
 async function visuals0() {
@@ -309,7 +311,6 @@ legend.append("text")
   .attr("alignment-baseline", "middle")
   .style("font-size", "14px");
 });
-
 }
 
 async function visuals1() {
@@ -410,6 +411,37 @@ async function visuals1() {
     .on("mouseout", function () {
       svg.selectAll(".hover-image").remove();
     });
+
+    // Add legend
+const legend = svg.append("g")
+.attr("transform", `translate(${chartWidth + 40}, ${margin.top})`);
+
+// Legend entries for Fire, Water, and Grass
+const legendData = [
+{ type: "fire", label: "Fire" },
+{ type: "water", label: "Water" },
+{ type: "grass", label: "Grass" },
+];
+
+legendData.forEach((item, i) => {
+// Icon
+legend.append("image")
+  .attr("x", -80)
+  .attr("y", i * 40)
+  .attr("width", 20)
+  .attr("height", 20)
+  .attr("href", iconMap[item.type]);
+
+// Text label
+legend.append("text")
+  .attr("x", -50)
+  .attr("y", i * 40 + 15)
+  .text(item.label)
+  .attr("alignment-baseline", "middle")
+  .style("font-size", "14px")
+  .style("fill", "#000");
+});
+
 }
 
 async function visuals2() {
