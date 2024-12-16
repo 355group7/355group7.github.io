@@ -1,53 +1,53 @@
-ranking,pokemon,votes,region,type,evolution_stage
-2,Rowlet,52367,Alola,Grass,Base
-3,Decidueye,44011,Alola,Grass,Second Evolution
-6,Incineroar,29925,Alola,Fire,Second Evolution
-8,Primarina,25953,Alola,Water,Second Evolution
-13,Litten,14005,Alola,Fire,Base
-28,Popplio,7542,Alola,Water,Base
-6,Cinderace,26892,Galar,Fire,Second Evolution
-10,Inteleon,20697,Galar,Water,Second Evolution
-12,Scorbunny,20058,Galar,Fire,Base
-14,Sobble,17155,Galar,Water,Base
-20,Grookey,13478,Galar,Grass,Base
-29,Rillaboom,8625,Galar,Grass,Second Evolution
-4,Sceptile,38724,Hoenn,Grass,Second Evolution
-5,Blaziken,38307,Hoenn,Fire,Second Evolution
-6,Mudkip,36920,Hoenn,Water,Base
-11,Swampert,26540,Hoenn,Water,Second Evolution
-20,Torchic,12568,Hoenn,Fire,Base
-24,Grovyle,10746,Hoenn,Grass,First Evolution
-26,Treecko,9339,Hoenn,Grass,Base
-4,Typhlosion,35184,Johto,Fire,Second Evolution
-8,Cyndaquil,28332,Johto,Fire,Base
-10,Totodile,22526,Johto,Water,Base
-14,Chikorita,18521,Johto,Grass,Base
-16,Feraligatr,18245,Johto,Water,Second Evolution
-24,Quilava,10032,Johto,Fire,First Evolution
-1,Greninja,140559,Kalos,Water,Second Evolution
-14,Fennekin,13508,Kalos,Fire,Base
-17,Delphox,10889,Kalos,Fire,Second Evolution
-18,Braixen,10807,Kalos,Fire,First Evolution
-30,Froakie,6293,Kalos,Water,Base
-1,Charizard,93968,Kanto,Fire,Second Evolution
-3,Bulbasaur,56015,Kanto,Grass,Base
-13,Squirtle,18476,Kanto,Water,Base
-14,Blastoise,16795,Kanto,Water,Second Evolution
-17,Charmander,14049,Kanto,Fire,Base
-28,Venusaur,10454,Kanto,Grass,Second Evolution
-1,Greninja,140559,Overall,Water,Second Evolution
-4,Charizard,93968,Overall,Fire,Second Evolution
-13,Bulbasaur,56015,Overall,Grass,Base
-16,Rowlet,52367,Overall,Grass,Base
-22,Decidueye,44011,Overall,Grass,Second Evolution
-28,Sceptile,38724,Overall,Grass,Second Evolution
-29,Blaziken,38307,Overall,Fire,Second Evolution
-4,Piplup,34680,Sinnoh,Water,Base
-5,Infernape,33267,Sinnoh,Fire,Second Evolution
-9,Empoleon,21773,Sinnoh,Water,Second Evolution
-12,Torterra,20632,Sinnoh,Grass,Second Evolution
-21,Turtwig,10865,Sinnoh,Grass,Base
-6,Serperior,22269,Unova,Grass,Second Evolution
-7,Oshawott,21990,Unova,Water,Base
-13,Snivy,17020,Unova,Grass,Base
-18,Samurott,11444,Unova,Water,Second Evolution
+ranking,pokemon,votes,region,type,evolution_stage,image
+2,Rowlet,52367,Alola,Grass,Base,images/grass7.png
+3,Decidueye,44011,Alola,Grass,Second Evolution,
+6,Incineroar,29925,Alola,Fire,Second Evolution,
+8,Primarina,25953,Alola,Water,Second Evolution,
+13,Litten,14005,Alola,Fire,Base,images/fire7.png
+28,Popplio,7542,Alola,Water,Base,images/water7.png
+6,Cinderace,26892,Galar,Fire,Second Evolution,
+10,Inteleon,20697,Galar,Water,Second Evolution,
+12,Scorbunny,20058,Galar,Fire,Base,images/fire8.png
+14,Sobble,17155,Galar,Water,Base,images/water8.png
+20,Grookey,13478,Galar,Grass,Base,images/grass8.png
+29,Rillaboom,8625,Galar,Grass,Second Evolution,
+4,Sceptile,38724,Hoenn,Grass,Second Evolution,
+5,Blaziken,38307,Hoenn,Fire,Second Evolution,
+6,Mudkip,36920,Hoenn,Water,Base,images/water3.png
+11,Swampert,26540,Hoenn,Water,Second Evolution,
+20,Torchic,12568,Hoenn,Fire,Base,images/fire3.png
+24,Grovyle,10746,Hoenn,Grass,First Evolution,
+26,Treecko,9339,Hoenn,Grass,Base,images/grass3.png
+4,Typhlosion,35184,Johto,Fire,Second Evolution,
+8,Cyndaquil,28332,Johto,Fire,Base,
+10,Totodile,22526,Johto,Water,Base,
+14,Chikorita,18521,Johto,Grass,Base,images/grass2.png
+16,Feraligatr,18245,Johto,Water,Second Evolution,
+24,Quilava,10032,Johto,Fire,First Evolution,
+1,Greninja,140559,Kalos,Water,Second Evolution,
+14,Fennekin,13508,Kalos,Fire,Base,images/fire6.png
+17,Delphox,10889,Kalos,Fire,Second Evolution,
+18,Braixen,10807,Kalos,Fire,First Evolution,
+30,Froakie,6293,Kalos,Water,Base,images/water6.png
+1,Charizard,93968,Kanto,Fire,Second Evolution,
+3,Bulbasaur,56015,Kanto,Grass,Base,images/grass1.png
+13,Squirtle,18476,Kanto,Water,Base,
+14,Blastoise,16795,Kanto,Water,Second Evolution,
+17,Charmander,14049,Kanto,Fire,Base,
+28,Venusaur,10454,Kanto,Grass,Second Evolution,
+1,Greninja,140559,Overall,Water,Second Evolution,
+4,Charizard,93968,Overall,Fire,Second Evolution,
+13,Bulbasaur,56015,Overall,Grass,Base,images/grass1.png
+16,Rowlet,52367,Overall,Grass,Base,images/grass7.png
+22,Decidueye,44011,Overall,Grass,Second Evolution,
+28,Sceptile,38724,Overall,Grass,Second Evolution,
+29,Blaziken,38307,Overall,Fire,Second Evolution,
+4,Piplup,34680,Sinnoh,Water,Base,images/water4.png
+5,Infernape,33267,Sinnoh,Fire,Second Evolution,
+9,Empoleon,21773,Sinnoh,Water,Second Evolution,
+12,Torterra,20632,Sinnoh,Grass,Second Evolution,
+21,Turtwig,10865,Sinnoh,Grass,Base,
+6,Serperior,22269,Unova,Grass,Second Evolution,
+7,Oshawott,21990,Unova,Water,Base,images/water5.png
+13,Snivy,17020,Unova,Grass,Base,images/grass5.png
+18,Samurott,11444,Unova,Water,Second Evolution,
