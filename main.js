@@ -56,8 +56,6 @@ const descriptionBox = d3.select("body")
   .style("color", "#333")
   .style("display", "none"); // Initially hidden
 
-
-
   function setDescription(text) {
     descriptionBox
       .html(text)
@@ -126,13 +124,13 @@ function drawPokeballWithButtons() {
     .attr("stroke", "#232323")
     .attr("stroke-width", borderWidth / 2);
 
-  // Draw the arrow buttons
-  const arrowButtonData = [
-    { index: 0, label: "Vis1", xOffset: -arrowButtonOffset, yOffset: -pokeBallSize / 4 },
-    { index: 1, label: "Vis2", xOffset: -arrowButtonOffset, yOffset: -pokeBallSize / 8 },
-    { index: 2, label: "Vis3", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 8 },
-    { index: 3, label: "Vis4", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 4 },
-  ];
+    const arrowButtonData = [
+      { index: 0, label: "Votes by Region (2019)", xOffset: -arrowButtonOffset, yOffset: -pokeBallSize / 4 },
+      { index: 1, label: "Votes by Region (2020)", xOffset: -arrowButtonOffset, yOffset: -pokeBallSize / 8 },
+      { index: 2, label: "Votes by Body Shape", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 8 },
+      { index: 3, label: "Votes by Tail Design", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 4 },
+    ];
+    
 
   const arrowButtons = pokeBallGroup.selectAll(".arrow-button")
     .data(arrowButtonData)
