@@ -388,8 +388,7 @@ async function visuals1() {
     .attr("transform", "rotate(-90)")
     .text("Pokemon Votes");
 
-  // Render Points (Images)
-  svg.selectAll(".point")
+    svg.selectAll(".point")
     .data(filteredData)
     .enter()
     .append("image")
@@ -397,8 +396,20 @@ async function visuals1() {
     .attr("y", d => yScale(d.votes) - 10)
     .attr("width", 20)
     .attr("height", 20)
-    .attr("href", d => iconMap[d.type] || "assets/images/default.png") // Fallback image
-    .attr("opacity", 1);
+    .attr("href", d => `assets/images/${d.type}.png`)
+    .attr("opacity", 1)
+    .on("mouseover", function (event, d) {
+      svg.append("image")
+        .attr("x", xScale(d.region) - 20)
+        .attr("y", yScale(d.votes) - 70)
+        .attr("width", 60)
+        .attr("height", 60)
+        .attr("href", `assets/${d.image}`)
+        .attr("class", "hover-image");
+    })
+    .on("mouseout", function () {
+      svg.selectAll(".hover-image").remove();
+    });
 }
 
 async function visuals2() {
