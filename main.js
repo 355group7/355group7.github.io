@@ -175,7 +175,7 @@ drawPokeballWithButtons();
 
 async function visuals0() {
 
-  setDescription(" 0 This visualization shows the favorite Pokémon votes by region in 2019. Regions are represented on the X-axis, and votes are on the Y-axis. Pokémon types (Fire, Water, Grass) are displayed using different icons.");
+  setDescription("This dot chart shows the votes for the three Pokémon in each region in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon.");
 
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
@@ -340,7 +340,7 @@ legend.append("text")
 }
 
 async function visuals1() {
-  setDescription("This dot chart shows the votes for the three Pokémon in each region in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon.");
+  setDescription("This dot chart shows the votes for the three Pokémon in each region in 2020. ");
 
   const pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
 
@@ -472,7 +472,7 @@ legend.append("text")
 }
 
 async function visuals2() {
-  setDescription("This chart shows the votes for the three Pokémon in each region in 2020. ");
+  setDescription("This dot chart shows how the overall appearance design of the three Pokémons affected players' choices in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon. According to the Pokémon Encyclopedia, the table divides the three Pokémons into five types of size.");
 
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
