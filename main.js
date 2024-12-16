@@ -45,7 +45,7 @@ const descriptionBox = d3.select("body")
   .attr("id", "description-box")
   .style("position", "absolute")
   .style("bottom", "20px") // Distance from bottom
-  .style("right", "20px")  // Align to the right side
+  .style("left", "20vw")  // Align to the right side
   .style("width", "300px")
   .style("padding", "10px")
   .style("background-color", "rgba(255, 255, 255, 0.8)")
