@@ -39,6 +39,29 @@ let activeButton = null;
 //     }
 // };
 
+// Create a description box dynamically
+const descriptionBox = d3.select("body")
+  .append("div")
+  .attr("id", "description-box")
+  .style("position", "absolute")
+  .style("bottom", "20px")
+  .style("left", "20px")
+  .style("width", "300px")
+  .style("padding", "10px")
+  .style("background-color", "rgba(255, 255, 255, 0.8)")
+  .style("border", "1px solid #ccc")
+  .style("border-radius", "8px")
+  .style("box-shadow", "0 2px 5px rgba(0,0,0,0.3)")
+  .style("font-size", "14px")
+  .style("color", "#333")
+  .style("display", "none"); // Initially hidden
+
+  function setDescription(text) {
+    descriptionBox
+      .html(text)
+      .style("display", "block"); // Show the description box
+  }
+  
 function drawPokeballWithButtons() {
   //draw in what section
   const container = d3.select("#poke-ball-container")
@@ -151,6 +174,9 @@ function drawPokeballWithButtons() {
 drawPokeballWithButtons();
 
 async function visuals0() {
+
+  setDescription(" 0 This visualization shows the favorite Pokémon votes by region in 2019. Regions are represented on the X-axis, and votes are on the Y-axis. Pokémon types (Fire, Water, Grass) are displayed using different icons.");
+
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
   // Filter dataset for base evolution stage and valid regions
@@ -314,6 +340,8 @@ legend.append("text")
 }
 
 async function visuals1() {
+  setDescription("This dot chart shows the votes for the three Pokémon in each region in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon.");
+
   const pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
 
   // Normalize type values
@@ -441,10 +469,11 @@ legend.append("text")
   .style("font-size", "14px")
   .style("fill", "#000");
 });
-
 }
 
 async function visuals2() {
+  setDescription("This chart shows the votes for the three Pokémon in each region in 2020. ");
+
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
   // Filter dataset for base evolution stage
@@ -555,6 +584,8 @@ async function visuals2() {
   }
 
   async function visuals3() {
+    setDescription("This chart shows how the design of the tails of the three Pokémons affected players' choices in 2019. Each region has a total of 950 votes, which are voted for the three types of initial Pokémon. According to the Pokémon Pokédex, the table uses solid points to indicate that Pokémons have tails, and hollow circles to indicate that Pokémons do not have tails.");
+
     const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
     // Filter dataset for base evolution stage
