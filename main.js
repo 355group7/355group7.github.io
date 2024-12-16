@@ -302,10 +302,22 @@ pointsGroup.selectAll(".point")
     .attr("height", 60)              // Set image height
     .attr("href", `assets/${d.image}`) // Dynamically fetch the image path from data
     .attr("class", "hover-image");   // Add a class for easy selection
+  // Add the vote count as text
+  svg.append("text")
+    .attr("x", xScale(d.region))     // Align text with the x position of the point
+    .attr("y", yScale(d.votes) - 90) // Place above the image
+    .attr("text-anchor", "middle")  // Center the text horizontally
+    .attr("class", "hover-text")    // Add a class for easy removal
+    .style("font-size", "14px")     // Adjust font size for readability
+    .style("font-weight", "bold")  // Make the text bold for better visibility
+    .style("fill", "black")         // Set text color
+    .text(`${d.votes} votes`);      // Show the vote count
 })
 .on("mouseout", function () {
   // Remove the PNG image on mouseout
   svg.selectAll(".hover-image").remove();
+  // Remove the text on mouseout
+  svg.selectAll(".hover-text").remove();
 });
 
 // Add legend
