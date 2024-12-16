@@ -130,7 +130,6 @@ function drawPokeballWithButtons() {
       { index: 2, label: "Votes by Body Shape", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 8 },
       { index: 3, label: "Votes by Tail Design", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 4 },
     ];
-    
 
   const arrowButtons = pokeBallGroup.selectAll(".arrow-button")
     .data(arrowButtonData)
@@ -482,7 +481,7 @@ async function visuals2() {
   );
   
   // Dimensions
-  const margin = { top: 60, right: 200, bottom: 60, left: 50 };
+  const margin = { top: 70, right: 200, bottom: 60, left: 50 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
