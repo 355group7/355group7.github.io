@@ -218,9 +218,11 @@ function renderInstruction() {
 
   // Add instruction content
   const instructions = [
-    "• The home page will help you learn about Pokémon knowledge, such as regions, Pokémon, and types.",
+    "• The home page will help you learn about Pokémon knowledge, such",
+    "as regions, Pokémon, and types.",
     "• Click the appropriate buttons to switch between charts.",
-    "• Hover the mouse over a point on the chart to see the Pokémon image and its actual votes."
+    "• Hover the mouse over a point on the chart to see the Pokémon",
+    " image and its actual votes."
   ];
 
   svg.selectAll(".instruction-text")
