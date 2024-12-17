@@ -211,17 +211,16 @@ function renderInstruction() {
     .attr("x", svgWidth / 2)
     .attr("y", svgHeight * 0.35)
     .attr("text-anchor", "middle")
-    .style("font-size", "24px")
+    .style("font-size", "23px")
     .style("font-weight", "bold")
     .style("fill", "#333")
-    .text("Welcome to the Pokémon Visualizations");
+    .text("~ Rotom Reminder: Before enjoying the Pokémon chart ~");
 
   // Add instruction content
   const instructions = [
-    "• Click the buttons to explore different Pokémon visualizations.",
-    "• Each visualization provides insights into Pokémon voting data.",
-    "• Hover over data points to see additional details.",
-    "• Click any button to start exploring!"
+    "• The home page will help you learn about Pokémon knowledge, such as regions, Pokémon, and types.",
+    "• Click the appropriate buttons to switch between charts.",
+    "• Hover the mouse over a point on the chart to see the Pokémon image and its actual votes."
   ];
 
   svg.selectAll(".instruction-text")
@@ -229,14 +228,12 @@ function renderInstruction() {
     .enter()
     .append("text")
     .attr("class", "instruction-text")
-    .attr("x", svgWidth * 0.15) // Left-align inside the box
+    .attr("x", svgWidth * 0.13) // Left-align inside the box
     .attr("y", (d, i) => svgHeight * 0.4 + i * 30) // Spacing between lines
     .style("font-size", "18px")
     .style("fill", "#555")
     .text(d => d);
 }
-
-
 
 // Function to replace instructions with the selected visualization
 function renderVisualization(functionCall) {
@@ -258,7 +255,7 @@ async function visuals0() {
   );
 
   // Set dimensions
-  const margin = { top: 60, right: 40, bottom: 60, left: 50 };
+  const margin = { top: 90, right: 40, bottom: 60, left: 50 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
@@ -408,7 +405,7 @@ grass: "assets/images/grass.png"  // Replace with the actual path to your grass 
 ["fire", "water", "grass"].forEach((type, i) => {
 // Add image for each type
 legend.append("image")
-  .attr("x", 0)
+  .attr("x", -40)
   .attr("y", i * 40) // Vertical spacing
   .attr("width", 20) // Set icon width
   .attr("height", 20) // Set icon height
@@ -416,7 +413,7 @@ legend.append("image")
 
 // Add text label next to the image
 legend.append("text")
-  .attr("x", 30) // Position to the right of the image
+  .attr("x", -10) // Position to the right of the image
   .attr("y", i * 40 + 15) // Align vertically with the icon
   .text(type.charAt(0).toUpperCase() + type.slice(1)) // Capitalize first letter
   .attr("alignment-baseline", "middle")
@@ -437,7 +434,7 @@ async function visuals1() {
       type: d.type.trim().toLowerCase() // Clean type values
   }));
 
-  const margin = { top: 60, right: 60, bottom: 60, left: 60 };
+  const margin = { top: 90, right: 60, bottom: 60, left: 60 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
@@ -552,7 +549,7 @@ const legendData = [
 legendData.forEach((item, i) => {
 // Icon
 legend.append("image")
-  .attr("x", -80)
+  .attr("x", -110)
   .attr("y", i * 40)
   .attr("width", 20)
   .attr("height", 20)
@@ -560,7 +557,7 @@ legend.append("image")
 
 // Text label
 legend.append("text")
-  .attr("x", -50)
+  .attr("x", -80)
   .attr("y", i * 40 + 15)
   .text(item.label)
   .attr("alignment-baseline", "middle")
@@ -580,7 +577,7 @@ async function visuals2() {
   );
   
   // Dimensions
-  const margin = { top: 70, right: 200, bottom: 60, left: 50 };
+  const margin = { top: 90, right: 200, bottom: 60, left: 50 };
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
@@ -705,7 +702,7 @@ async function visuals2() {
     );
   
     // Set dimensions
-    const margin = { top: 60, right: 30, bottom: 60, left: 70 };
+    const margin = { top: 90, right: 30, bottom: 60, left: 70 };
     const width = 800;
     const height = 500;
     const chartWidth = width - margin.left - margin.right;
