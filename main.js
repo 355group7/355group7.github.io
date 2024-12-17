@@ -62,6 +62,7 @@ const descriptionBox = d3.select("body")
       .style("display", "block"); // Show the description box
   }
   
+  
 function drawPokeballWithButtons() {
   //draw in what section
   const container = d3.select("#poke-ball-container")
@@ -148,6 +149,9 @@ function drawPokeballWithButtons() {
       if (d.index === 3) visuals3();
     });
 
+          // Show the instruction as default
+  renderInstruction();
+
   // Add button shapes
   arrowButtons.append("rect")
     .attr("x", 30)
@@ -167,10 +171,80 @@ function drawPokeballWithButtons() {
     .style("font-size", "14px")
     .style("font-weight", "bold")
     .text(d => d.label);
+
+
+
 }
 
 
+
 drawPokeballWithButtons();
+
+
+function renderInstruction() {
+  const svgWidth = 800;
+  const svgHeight = 500;
+
+  // Clear the view container
+  d3.select("#view").html("");
+
+  // Create the SVG container
+  const svg = d3.select("#view")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+  // Draw a rectangle as the instruction box
+  svg.append("rect")
+    .attr("x", svgWidth * 0.1) // Position: 10% from the left
+    .attr("y", svgHeight * 0.3) // Position: 30% from the top
+    .attr("width", svgWidth * 0.8) // 80% of the SVG width
+    .attr("height", svgHeight * 0.4) // 40% of the SVG height
+    .attr("fill", "#fefae0") // Light background color
+    .attr("stroke", "#d97746") // Border color
+    .attr("stroke-width", 3)
+    .attr("rx", 10) // Rounded corners
+    .attr("ry", 10);
+
+  // Add instruction title
+  svg.append("text")
+    .attr("x", svgWidth / 2)
+    .attr("y", svgHeight * 0.35)
+    .attr("text-anchor", "middle")
+    .style("font-size", "24px")
+    .style("font-weight", "bold")
+    .style("fill", "#333")
+    .text("Welcome to the Pokémon Visualizations");
+
+  // Add instruction content
+  const instructions = [
+    "• Click the buttons to explore different Pokémon visualizations.",
+    "• Each visualization provides insights into Pokémon voting data.",
+    "• Hover over data points to see additional details.",
+    "• Click any button to start exploring!"
+  ];
+
+  svg.selectAll(".instruction-text")
+    .data(instructions)
+    .enter()
+    .append("text")
+    .attr("class", "instruction-text")
+    .attr("x", svgWidth * 0.15) // Left-align inside the box
+    .attr("y", (d, i) => svgHeight * 0.4 + i * 30) // Spacing between lines
+    .style("font-size", "18px")
+    .style("fill", "#555")
+    .text(d => d);
+}
+
+
+
+// Function to replace instructions with the selected visualization
+function renderVisualization(functionCall) {
+  const view = d3.select("#view");
+  view.html(""); // Clear the instruction or previous visual
+  functionCall(); // Call the selected visualization function
+}
+
 
 async function visuals0() {
 
