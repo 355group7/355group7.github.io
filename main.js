@@ -583,7 +583,7 @@ legend.append("text")
 
 async function visuals2() {
   setDescription(
-    "This dot chart shows how the overall appearance design of the three Pokémons affected players' choices in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon. According to the Pokémon Encyclopedia, the table divides the three Pokémons into five types of size."
+    "This chart displays how the body shape design of Pokémon influenced players' votes. The Pokémon are categorized into five distinct body shapes. Each symbol represents a Pokémon, and the vertical position corresponds to the number of votes received. The Pokémon names are displayed along the horizontal axis."
   );
 
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
@@ -723,7 +723,7 @@ async function visuals2() {
   }
   async function visuals3() {
     setDescription(
-      "This chart shows how the design of the tails of the three Pokémons affected players' choices in 2019. Each region has a total of 950 votes, which are voted for the three types of initial Pokémon. According to the Pokémon Pokédex, the table uses solid points to indicate that Pokémons have tails, and hollow circles to indicate that Pokémons do not have tails."
+      "This chart explores how the tail design of Pokémon influenced players' voting preferences. Each Pokémon is represented by a point, where: Solid circles indicate Pokémon with tails. Hollow circles indicate Pokémon without tails. The Pokémon are grouped by regions (e.g., Kanto, Johto, Hoenn), with each region's votes plotted along a line."
     );
   
     const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
