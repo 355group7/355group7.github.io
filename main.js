@@ -569,7 +569,9 @@ legend.append("text")
 }
 
 async function visuals2() {
-  setDescription("This dot chart shows how the overall appearance design of the three Pokémons affected players' choices in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon. According to the Pokémon Encyclopedia, the table divides the three Pokémons into five types of size.");
+  setDescription(
+    "This dot chart shows how the overall appearance design of the three Pokémons affected players' choices in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon. According to the Pokémon Encyclopedia, the table divides the three Pokémons into five types of size."
+  );
 
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
@@ -577,39 +579,32 @@ async function visuals2() {
   const filteredData = pokemondata.filter(
     (d) => d.evolution_stage === "base" && d.region !== "Overall"
   );
-  
+
   // Dimensions
-  const margin = { top: 90, right: 200, bottom: 60, left: 50 };
+  const margin = { top: 100, right: 200, bottom: 60, left: 80 }; // Increased left margin
   const width = 800;
   const height = 500;
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
-  
+
   // Scales
-  const xScale = d3.scalePoint()
-    .domain([...new Set(filteredData.map(d => d.pokemon))])  // Use 'pokemon' for the x-axis
+  const xScale = d3
+    .scalePoint()
+    .domain([...new Set(filteredData.map((d) => d.pokemon))])
     .range([0, chartWidth])
     .padding(0.5);
 
-    const yScale = d3.scaleLinear()
-    .domain([0, d3.max(filteredData, d => d.votes)])  // Use 'votes' for the y-axis
-    .range([chartHeight, 0]);  // Invert the scale (higher votes at the top)
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, d3.max(filteredData, (d) => d.votes)])
+    .range([chartHeight, 0]);
 
-  const sizeScale = d3.scaleLinear()
-    .domain(d3.extent(filteredData, d => d.votes))
-    .range([4, 12]);
-
-  const colorScale = d3.scaleOrdinal()
-    .domain([...new Set(filteredData.map(d => d["Body shape"]))])
-    .range(d3.schemeTableau10);
-  
-  // Mapping body shapes to image paths
   const shapeImageMap = {
     "with bipedal": "assets/images/with bipedal.png",
     "with quadrup": "assets/images/with quadrup.png",
     "with a head and legs": "assets/images/with a head and legs.png",
     "with fins": "assets/images/with fin.png",
-    "with wing": "assets/images/with wing.png"
+    "with wing": "assets/images/with wing.png",
   };
 
   // Append SVG container
@@ -620,29 +615,50 @@ async function visuals2() {
     .attr("height", height)
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
+
   // Axes
-  svg.append("g")
+  svg
+    .append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(d3.axisBottom(xScale))
     .selectAll("text")
     .attr("transform", "rotate(-45)")
     .style("text-anchor", "end");
 
-  svg.append("g")
-    .call(d3.axisLeft(yScale));
-  
-  // Points (using images for different Body shapes)
-  svg.selectAll(".point")
+  svg.append("g").call(d3.axisLeft(yScale));
+
+  // Add axis titles
+  svg
+    .append("text")
+    .attr("x", chartWidth / 2)
+    .attr("y", chartHeight + margin.bottom)
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px")
+    .style("font-weight", "bold")
+    .text("Pokémon Names");
+
+  svg
+    .append("text")
+    .attr("x", -chartHeight / 2)
+    .attr("y", -50) // Adjusted to align better
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .style("font-size", "16px")
+    .style("font-weight", "bold")
+    .text("Votes Count");
+
+  // Points
+  svg
+    .selectAll(".point")
     .data(filteredData)
     .enter()
     .append("image")
     .attr("class", "point")
-    .attr("x", d => xScale(d.pokemon) - 20)  // Adjust image position (use 'pokemon' for x)
-    .attr("y", d => yScale(d.votes) - 20) // Adjust image position (use 'votes' for y)
-    .attr("width", 40)  // Set image width
-    .attr("height", 40) // Set image height
-    .attr("href", d => shapeImageMap[d["Body shape"]])  // Set the image source based on Body shape
+    .attr("x", (d) => xScale(d.pokemon) - 20)
+    .attr("y", (d) => yScale(d.votes) - 20)
+    .attr("width", 40)
+    .attr("height", 40)
+    .attr("href", (d) => shapeImageMap[d["Body shape"]])
     .attr("opacity", 0.8);
 
   // Add Legend (if desired, to show Body shape -> image mapping)
