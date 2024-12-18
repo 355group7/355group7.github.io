@@ -436,7 +436,7 @@ legend.append("text")
 }
 
 async function visuals1() {
-  setDescription("This dot chart shows the votes for the three Pokémon in each region in 2020. ");
+  setDescription("This chart illustrates the vote distribution for Fire, Water, and Grass starter Pokémon across different Pokémon regions in 2020. Each point represents the total votes received by Pokémon of a particular type, with Fire, Water, and Grass represented by red flames, blue water drops, and green grass symbols, respectively.");
 
   const pokemondata = await d3.csv("assets/starter_pokemon_rankings_with_evolution (1).csv", d3.autoType);
 
