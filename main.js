@@ -930,3 +930,21 @@ async function runApp() {
   }
 
   runApp();
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll(".section");
+    const buttonsContainer = document.querySelector(".section-buttons");
+  
+    // Create buttons dynamically for each section
+    sections.forEach((section) => {
+      const button = document.createElement("button");
+      button.textContent = section.querySelector("h2").textContent; // Use the section's title as the button text
+      button.addEventListener("click", () => {
+        section.scrollIntoView({ behavior: "smooth" }); // Scroll to the section
+      });
+      buttonsContainer.appendChild(button);
+    });
+  });
+  

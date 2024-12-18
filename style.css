@@ -92,93 +92,6 @@ html {
   height: auto;
 }
 
-/* :root {
-  --poke-ball-size: 26vw;
-  --center-circle-size: calc(var(--poke-ball-size) / 4);
-  --inner-circle-size: calc(var(--center-circle-size) / 2.5);
-  --border-width: calc(var(--poke-ball-size) / 20);
-}
-
-.poke-ball {
-  width: var(--poke-ball-size);
-  height: var(--poke-ball-size);
-  position: absolute;
-  top: 50%;
-  right: calc(var(--poke-ball-size) / -1.8);
-  transform: translateY(-50%);
-  border-radius: 50%;
-  overflow: hidden;
-  border: var(--border-width) solid #232323;
-}
-
-.top-half {
-  width: 100%;
-  height: 50%;
-  background-color: #d16533;
-  position: absolute;
-  top: 0;
-}
-
-.bottom-half {
-  width: 100%;
-  height: 50%;
-  background-color: white;
-  position: absolute;
-  bottom: 0;
-}
-
-.middle-line {
-  width: 100%;
-  height: calc(var(--border-width) * 1.8);
-  background-color: #232323;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.center-circle {
-  width: var(--center-circle-size);
-  height: var(--center-circle-size);
-  background-color: white;
-  border-radius: 50%;
-  border: var(--border-width) solid #232323;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-.arrow {
-  position: absolute;
-  width: 18rem;
-  height: 0.5rem;
-  background-color: #232323;
-  top: calc(10vw + var(--index) * 2.9vw);
-  right: 16vh;
-  left: 55vw;
-  max-width: 500px;
-  transition: width 0.3s ease;
-}
-
-.arrow-button {
-  position: absolute;
-  top: calc(-0.7vw + var(--index) * 0.01vw);
-  right: 30vh;
-  padding: 6px 30px;
-  background-color: #232323;
-  color: white;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.arrow-button:hover {
-  background-color: white;
-  color: #d16533;
-} */
 
 .animated-image {
   position: absolute;
@@ -336,5 +249,39 @@ svg {
     display: none;
   }
 }
+.catalog-container {
+  position: sticky; /* Sticks the catalog to the top */
+  top: 0; /* Always visible at the top */
+  background-color: #FFAF61;
+  padding: 10px 20px;
+  z-index: 10; /* Ensures it stays above other content */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
 
+.catalog-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #d16533;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
+.catalog-button:hover {
+  background-color: #ff7a4c;
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.catalog-button:active {
+  background-color: #c14a28; /* Darken when clicked */
+}
+
+.page {
+  padding-top: 50px; /* Prevent content from hiding behind sticky catalog */
+}
