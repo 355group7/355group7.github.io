@@ -182,72 +182,83 @@ drawPokeballWithButtons();
 
 
 function renderInstruction() {
-  const svgWidth = 800;
-  const svgHeight = 500;
+  const svgWidth = 720; // Total width of the box
+  const svgHeight = 360; // Adjusted height for better fit
 
   // Clear the view container
   d3.select("#view").html("");
+
+  // Vertically center the instruction box
+  const containerHeight = d3.select("#view").node().getBoundingClientRect().height;
+  const verticalOffset = (containerHeight - svgHeight) / 2;
 
   // Create the SVG container
   const svg = d3.select("#view")
     .append("svg")
     .attr("width", svgWidth)
-    .attr("height", svgHeight);
+    .attr("height", svgHeight)
+    .style("transform", `translateY(${verticalOffset}px)`);
 
-  // Draw a rectangle as the instruction box
+  // Draw a rectangle for the instruction box with padding
   svg.append("rect")
-    .attr("x", svgWidth * 0.1) // Position: 10% from the left
-    .attr("y", svgHeight * 0.3) // Position: 30% from the top
-    .attr("width", svgWidth * 0.8) // 80% of the SVG width
-    .attr("height", svgHeight * 0.4) // 40% of the SVG height
-    .attr("fill", "#fefae0") // Light background color
-    .attr("stroke", "#d97746") // Border color
-    .attr("stroke-width", 3)
-    .attr("rx", 10) // Rounded corners
-    .attr("ry", 10);
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", svgWidth)
+    .attr("height", svgHeight)
+    .attr("fill", "#fefae0")
+    .attr("stroke", "#d97746")
+    .attr("stroke-width", 2)
+    .attr("rx", 12)
+    .style("filter", "drop-shadow(2px 2px 4px rgba(0,0,0,0.2))");
 
-  // Add instruction title
+  // Add title with top margin
   svg.append("text")
     .attr("x", svgWidth / 2)
-    .attr("y", svgHeight * 0.35)
+    .attr("y", 40) // Adjusted top margin for title
     .attr("text-anchor", "middle")
-    .style("font-size", "23px")
+    .style("font-size", "24px")
     .style("font-weight", "bold")
     .style("fill", "#333")
-    .text("~ Rotom Reminder: Before enjoying the Pokémon chart ~");
+    .text("Rotom Reminder: Before enjoying the Pokémon chart");
 
-  // Add instruction content
+  // Instructions text with numbering
   const instructions = [
-    "• The home page will help you learn about Pokémon knowledge, such",
-    "as regions, Pokémon, and types.",
-    "• Click the appropriate buttons to switch between charts.",
-    "• Hover the mouse over a point on the chart to see the Pokémon",
-    " image and its actual votes."
+    "1. The home page will help you learn about Pokémon knowledge, such as regions, Pokémon, and types.",
+    "2. Use the buttons on the right to switch between different Pokémon charts:",
+    "   - Votes by Region (2019 & 2020): Explore votes across regions.",
+    "   - Votes by Body Shape: See the impact of Pokémon body shapes.",
+    "   - Votes by Tail Design: Discover how tail designs influenced votes.",
+    "3. Hover over a point to view Pokémon details, including image and votes."
   ];
 
-  svg.selectAll(".instruction-text")
-    .data(instructions)
-    .enter()
-    .append("text")
-    .attr("class", "instruction-text")
-    .attr("x", svgWidth * 0.13) // Left-align inside the box
-    .attr("y", (d, i) => svgHeight * 0.4 + i * 30) // Spacing between lines
+  // Append a <foreignObject> to allow text wrapping
+  svg.append("foreignObject")
+    .attr("x", 30) // Add left margin
+    .attr("y", 70) // Start below the title
+    .attr("width", svgWidth - 60) // Account for left and right padding
+    .attr("height", svgHeight - 100) // Adjusted height
+    .append("xhtml:div")
     .style("font-size", "18px")
-    .style("fill", "#555")
-    .text(d => d);
+    .style("color", "#555")
+    .style("line-height", "1.5em")
+    .style("word-wrap", "break-word")
+    .style("padding-right", "10px")
+    .html(
+      instructions
+        .map(
+          line =>
+            `<p style="margin: 10px 0; text-indent: 0;">${line}</p>` // Add vertical space
+        )
+        .join("")
+    );
 }
 
-// Function to replace instructions with the selected visualization
-function renderVisualization(functionCall) {
-  const view = d3.select("#view");
-  view.html(""); // Clear the instruction or previous visual
-  functionCall(); // Call the selected visualization function
-}
+
 
 
 async function visuals0() {
 
-  setDescription("This dot chart shows the votes for the three Pokémon in each region in 2019. Each region has a total of 950 votes, one for each of the three attributes of the original Pokémon.");
+  setDescription("This chart displays the voting results for the three starter Pokémon across different regions in 2019. Each region received a total of 950 votes, divided evenly among the three Pokémon types: Fire, Water, and Grass. Hover over each point to reveal the Pokémon’s image and its specific vote count.");
 
   const pokemondata = await d3.csv("assets/355M1.csv", d3.autoType);
 
