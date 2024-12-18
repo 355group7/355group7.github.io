@@ -132,15 +132,30 @@ function drawPokeballWithButtons() {
       { index: 3, label: "Votes by Tail Design", xOffset: -arrowButtonOffset, yOffset: pokeBallSize / 4 },
     ];
 
-  const arrowButtons = pokeBallGroup.selectAll(".arrow-button")
-    .data(arrowButtonData)
-    .enter()
-    .append("g")
-    .attr("class", "arrow-button")
-    .attr("transform", d => `translate(${d.xOffset - 300}, ${d.yOffset})`)
-    .on("click", (event, d) => {
-      // Clear the visualization container
-      d3.select("#view").html("");
+    let activeButton = null; // Track the currently active button
+
+    const arrowButtons = pokeBallGroup.selectAll(".arrow-button")
+      .data(arrowButtonData)
+      .enter()
+      .append("g")
+      .attr("class", "arrow-button")
+      .attr("transform", d => `translate(${d.xOffset - 300}, ${d.yOffset})`)
+      .style("cursor", "pointer") // Indicate clickable behavior
+      // Hover effect
+      .on("mouseover", function (event, d) {
+        d3.select(this).select("rect").attr("fill", "#f48c42"); // Change color on hover
+      })
+      .on("mouseout", function (event, d) {
+        if (activeButton !== this) { // Keep the active button unchanged
+          d3.select(this).select("rect").attr("fill", "#232323"); // Revert to original color
+        }
+      })
+      // Click interaction
+      .on("click", function (event, d) {
+        // Clear the visualization container
+        d3.select("#view").html("");
+
+    
 
       // Trigger visualization functions
       if (d.index === 0) visuals0();
