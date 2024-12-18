@@ -302,7 +302,8 @@ async function visuals0() {
 
   svg.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
-    .call(xAxis);
+    .call(xAxis)
+    .style("font-size", "14px");
 
   svg.append("g")
     .call(yAxis);
@@ -329,10 +330,10 @@ async function visuals0() {
 
   svg.append("text")
     .attr("x", -chartHeight / 2)
-    .attr("y", -margin.left + 10)
+    .attr("y", -margin.left + 13)
     .attr("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
-    .text("fav pokemon Votes in 2019");
+    .text("Favorite Pokémon Votes in 2019");
 
   // Points
   svg.selectAll(".point")
@@ -470,7 +471,8 @@ async function visuals1() {
 
   svg.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
-    .call(xAxis);
+    .call(xAxis)
+    .style("font-size", "14px");
 
   svg.append("g")
     .call(yAxis);
@@ -690,7 +692,7 @@ async function visuals2() {
         .attr("height", 60)
         .attr("href", `assets/${d.image}`)
         .attr("class", "hover-image");
-  // Add the vote count as text
+
   svg.append("text")
     .attr("x", xScale(d.pokemon)+10)     // Align text with the x position of the point
     .attr("y", yScale(d.votes) - 80) // Place above the image
@@ -720,7 +722,7 @@ async function visuals2() {
     );
   
     // Set dimensions
-    const margin = { top: 90, right: 200, bottom: 60, left: 70 };
+    const margin = { top: 90, right: 250, bottom: 60, left: 70 };
     const width = 800;
     const height = 500;
     const chartWidth = width - margin.left - margin.right;
@@ -750,20 +752,20 @@ async function visuals2() {
       .domain([...new Set(filteredData.map((d) => d.region))])
       .range(d3.schemeCategory10);
   
-    // Axes
-    svg.append("g")
+      svg.append("g")
       .attr("transform", `translate(0, ${chartHeight})`)
       .call(d3.axisBottom(xScale))
       .selectAll("text")
       .attr("transform", "rotate(-45)")
-      .style("text-anchor", "end");
+      .style("text-anchor", "end")
+      .style("font-size", "12px") // Adjust font size here
   
     svg.append("g").call(d3.axisLeft(yScale));
   
     // Add axis labels
     svg.append("text")
       .attr("x", chartWidth / 2)
-      .attr("y", chartHeight + margin.bottom - 10)
+      .attr("y", chartHeight + margin.bottom)
       .attr("text-anchor", "middle")
       .style("font-size", "16px")
       .style("font-weight", "bold")
@@ -771,7 +773,7 @@ async function visuals2() {
   
     svg.append("text")
       .attr("x", -chartHeight / 2)
-      .attr("y", -50)
+      .attr("y", -40)
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
       .style("font-size", "16px")
@@ -834,7 +836,6 @@ async function visuals2() {
       svg.selectAll(".hover-text").remove();
     });
   
-  
     // Add Region Labels at the Top
     [...regions.keys()].forEach((region, i) => {
       const avgX = d3.mean(regions.get(region), (d) => xScale(d["pokemon"]));
@@ -843,7 +844,7 @@ async function visuals2() {
         .attr("x", avgX)
         .attr("y", -50) // Positioned above the chart
         .attr("text-anchor", "middle")
-        .style("font-size", "14px")
+        .style("font-size", "16px")
         .style("font-weight", "bold")
         .style("fill", colorScale(region))
         .text(region);
@@ -856,7 +857,7 @@ async function visuals2() {
     legend.append("text")
       .attr("x", 0)
       .attr("y", 0)
-      .style("font-size", "14px")
+      .style("font-size", "18px")
       .style("font-weight", "bold")
       .text("Legend");
   
@@ -877,12 +878,10 @@ async function visuals2() {
       legend.append("text")
         .attr("x", 15)
         .attr("y", 25 + i * 25)
-        .style("font-size", "12px")
+        .style("font-size", "16px")
         .text(item.label);
     });
   }
-  
-  
 
 async function runApp() {
     document.querySelector(".arrow-button[style='--index: 0;']").addEventListener("click", () => {
